@@ -10,7 +10,7 @@
     <link th:href="@{/css/shopping.css}" href="../static/css/shopping.css" rel="stylesheet" media="screen"/>
 
 
-    <link th:href="@{/css/custom.css}" href="../static/css/custom.css" rel="stylesheet" media="screen"/>
+    <!--<link th:href="@{/css/custom.css}" href="../static/css/custom.css" rel="stylesheet" media="screen"/>-->
     <title>Pick up your basket</title>
 </head>
 <body>
@@ -210,7 +210,7 @@
                         </td>
                         <td>
                             <div>
-                                <label th:text="#{item.list}">Items List</label>
+                                <!--<label th:text="#{item.list}">Items List</label>-->
                                 <table>
                                     <thead>
                                     <tr>
@@ -219,26 +219,26 @@
                                         <th th:text="#{item.price}">Price</th>
                                         <th th:text="#{item.number}">Number of Items</th>
                                         <th>
-                                            <button type="submit" name="addItem" th:value="${catIndex.index}" th:text="#{item.add.row}">Add New Item</button>
+                                            <button type="submit" name="addItem" th:value="${catIndex.index}" th:text="#{item.add.row}" class="addItem">Add New Item</button>
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="itemTableBody">
                                     <tr th:each="item, itemIndex: ${category.itemsList}" th:name="itemCat" th:field="${catIndex.index}">
                                         <td>
-                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemGivenName}">
+                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemGivenName}" class="textClass">
                                         </td>
                                         <td>
-                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemBarcode}">
+                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemBarcode}" class="textClass">
+                                        <td>
+                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemPrice}" class="priceClass">
                                         </td>
                                         <td>
-                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemPrice}">
-                                        </td>
-                                        <td>
-                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].numItem}">
+                                            <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].numItem}" class="numberClass">
                                         </td>
                                         <td>
                                             <a th:text="#{item.remove.row}" th:href="@{/basketform/{categoryIndex}/{itemIndex}(categoryIndex = ${catIndex.index}, itemIndex = ${itemIndex.index})}">Remove This Item</a>
+                                            <!--<button type="submit" name="removeItem" th:value="${item}"></button>-->
                                         </td>
 
                                     </tr>
@@ -247,7 +247,7 @@
                             </div>
                         </td>
                         <td>
-                            <button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{category.row.remove}">Remove the Category</button>
+                            <button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{category.row.remove}" class="addItem">Remove the Category</button>
                         </td>
                     </tr>
                     </tbody>

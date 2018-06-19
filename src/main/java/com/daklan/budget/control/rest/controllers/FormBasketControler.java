@@ -104,8 +104,8 @@ public class FormBasketControler {
         ShoppingListIn shoppingListIn = this.shoppingListIn;
         CategoryIn categoryIn = shoppingListIn.getCategoryInList().get(catInd.intValue());
         categoryIn.getItemsList().remove(itemInd.intValue());
-        model.addAttribute("basketForm",shoppingListIn);
         this.shoppingListIn = shoppingListIn;
+        model.addAttribute("basketForm",shoppingListIn);
 
         return "basketform";
     }
