@@ -237,8 +237,8 @@
                                             <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].numItem}" class="numberClass">
                                         </td>
                                         <td>
-                                            <a th:text="#{item.remove.row}" th:href="@{/basketform/{categoryIndex}/{itemIndex}(categoryIndex = ${catIndex.index}, itemIndex = ${itemIndex.index})}">Remove This Item</a>
-                                            <!--<button type="submit" name="removeItem" th:value="${item}"></button>-->
+                                            <!--<a th:text="#{item.remove.row}" th:href="@{/basketform/{categoryIndex}/{itemIndex}(categoryIndex = ${catIndex.index}, itemIndex = ${itemIndex.index})}">Remove This Item</a>-->
+                                            <button type="submit" name="removeItem" th:value="${catIndex.index} + '-' + ${itemIndex.index}" th:text="#{item.remove.row}" class="removeItem"></button>
                                         </td>
 
                                     </tr>

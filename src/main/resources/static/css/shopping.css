@@ -164,6 +164,14 @@ button.addItem {
     font-size: 10pt;
     width: 100px;
 }
+
+button.removeItem {
+    font-weight: normal;
+    font-variant: small-caps;
+    font-size: 10pt;
+    width: 100px;
+    background-color: #FF5A43;
+}
 .textClass {
     width: 150px;
 }
