@@ -1,11 +1,11 @@
 package com.daklan.budget.control.rest.dto.input;
 
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Repository;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
+//import java.util.Objects;
 
 public class ItemIn implements Serializable {
 
@@ -14,7 +14,7 @@ public class ItemIn implements Serializable {
     /**
      * The name Given by the end user to the item. This is a fre text zone without any control, but maybe for security reasons
      */
-    @Nullable
+
     private String itemGivenName;
 
     /**
@@ -32,7 +32,6 @@ public class ItemIn implements Serializable {
     /**
      * This is a free text zone to be filled in for any reason.
      */
-    @Nullable
     private String itemDescription;
 
     @NotNull
@@ -92,19 +91,31 @@ public class ItemIn implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ItemIn item = (ItemIn) o;
-        return Double.compare(item.itemPrice, itemPrice) == 0 &&
-                Objects.equals(itemCode, item.itemCode) &&
-                Objects.equals(itemBarcode, item.itemBarcode) &&
-                Objects.equals(numItem, item.numItem) &&
-                Objects.equals(itemDescription, item.itemDescription);
+
+        if (!(o instanceof ItemIn)) return false;
+
+        ItemIn itemIn = (ItemIn) o;
+
+        return new EqualsBuilder()
+                .append(itemPrice, itemIn.itemPrice)
+                .append(itemGivenName, itemIn.itemGivenName)
+                .append(itemCode, itemIn.itemCode)
+                .append(itemBarcode, itemIn.itemBarcode)
+                .append(itemDescription, itemIn.itemDescription)
+                .append(numItem, itemIn.numItem)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(itemCode, itemBarcode, itemDescription, itemPrice, numItem);
+        return new HashCodeBuilder(17, 37)
+                .append(itemGivenName)
+                .append(itemCode)
+                .append(itemBarcode)
+                .append(itemDescription)
+                .append(numItem)
+                .append(itemPrice)
+                .toHashCode();
     }
 
     @Override

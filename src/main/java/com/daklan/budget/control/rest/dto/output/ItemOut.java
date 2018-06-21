@@ -1,7 +1,6 @@
 package com.daklan.budget.control.rest.dto.output;
 
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Repository;
+import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

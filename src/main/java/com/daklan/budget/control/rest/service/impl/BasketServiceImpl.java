@@ -7,14 +7,14 @@ import com.daklan.budget.control.rest.dto.output.ItemCategoryOut;
 import com.daklan.budget.control.rest.dto.output.ItemOut;
 import com.daklan.budget.control.rest.dto.output.ShoppingCenterOut;
 import com.daklan.budget.control.rest.dto.output.ShoppingListOut;
-import com.daklan.budget.control.rest.repositories.BasketRepository;
 import com.daklan.budget.control.rest.service.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,9 +61,9 @@ public class BasketServiceImpl implements BasketService {
      */
     private List<LocalDate> getDatesOpen(ShoppingListIn shoppingListIn) {
         List<LocalDate> dates = new ArrayList<>();
-        if(shoppingListIn.getShoppingCenter().getDatesOpen() != null) {
+        if(shoppingListIn.getShoppingCenterIn().getDatesOpen() != null) {
 
-            for (String strDate : shoppingListIn.getShoppingCenter().getDatesOpen()) {
+            for (String strDate : shoppingListIn.getShoppingCenterIn().getDatesOpen()) {
                 LocalDate date = LocalDate.parse(strDate);
                 dates.add(date);
             }
@@ -80,11 +80,11 @@ public class BasketServiceImpl implements BasketService {
         ShoppingCenterOut shoppingCenterOut = new ShoppingCenterOut();
 
         shoppingCenterOut.setDatesOpen(getDatesOpen(shoppingListIn));
-        shoppingCenterOut.setTelNumber(shoppingListIn.getShoppingCenter().getTelNumber());
-        shoppingCenterOut.setOfficialname(shoppingListIn.getShoppingCenter().getOfficialname());
-        shoppingCenterOut.setGivenName(shoppingListIn.getShoppingCenter().getGivenName());
-        shoppingCenterOut.setCode(shoppingListIn.getShoppingCenter().getCode());
-        shoppingCenterOut.setAddress(shoppingListIn.getShoppingCenter().getAddress());
+        shoppingCenterOut.setTelNumber(shoppingListIn.getShoppingCenterIn().getTelNumber());
+        shoppingCenterOut.setOfficialname(shoppingListIn.getShoppingCenterIn().getOfficialname());
+        shoppingCenterOut.setGivenName(shoppingListIn.getShoppingCenterIn().getGivenName());
+        shoppingCenterOut.setCode(shoppingListIn.getShoppingCenterIn().getCode());
+        shoppingCenterOut.setAddress(shoppingListIn.getShoppingCenterIn().getAddress());
 
         return shoppingCenterOut;
     }

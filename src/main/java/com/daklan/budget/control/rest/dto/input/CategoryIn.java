@@ -3,8 +3,6 @@ package com.daklan.budget.control.rest.dto.input;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -21,7 +19,6 @@ public class CategoryIn implements Serializable {
     /**
      * The free text zone entered by the customer.
      */
-    @Nullable
     private String givenName;
 
     /**

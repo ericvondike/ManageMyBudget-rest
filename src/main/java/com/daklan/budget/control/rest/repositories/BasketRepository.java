@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public class BasketRepository {
-    private final List<ShoppingListIn> shoppingListIns = new ArrayList<>();
+    private final List<ShoppingListIn> shoppingListIns = new ArrayList<ShoppingListIn>();
 
     public BasketRepository() {
         super();

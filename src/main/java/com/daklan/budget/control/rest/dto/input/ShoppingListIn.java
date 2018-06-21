@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class ShoppingListIn implements Serializable {
-    private static final Long serialVersionUID = 451L;
+    private static final long serialVersionUID = 4517865641481565634L;
 
     /**
      * The free title given to a list by the customer
@@ -39,9 +39,14 @@ public class ShoppingListIn implements Serializable {
     private ShoppingCenterIn shoppingCenterIn;
 
     @NotNull
-    private ShoppingCenter shoppingCenter = ShoppingCenter.AUCHAN;
+    private ShoppingCenter shoppingCenter;
 
-    public ShoppingListIn() { super();
+    public String getListTitle() {
+        return listTitle;
+    }
+
+    public void setListTitle(String listTitle) {
+        this.listTitle = listTitle;
     }
 
     public LocalDate getDateShopped() {
@@ -52,28 +57,24 @@ public class ShoppingListIn implements Serializable {
         this.dateShopped = dateShopped;
     }
 
-    public String getListTitle() {
-        return listTitle;
-    }
-
-    public void setListTitle(String listTitle) {
-        this.listTitle = listTitle;
-    }
-
     public List<CategoryIn> getCategoryInList() {
-        return this.categoryInList;
+        return categoryInList;
     }
 
-    public void setCategoryInList(List<CategoryIn> itemCategoryListIn) {
-        this.categoryInList = itemCategoryListIn;
+    public void setCategoryInList(List<CategoryIn> categoryInList) {
+        this.categoryInList = categoryInList;
     }
 
-    public ShoppingCenterIn getShoppingCenter() {
+    public ShoppingCenterIn getShoppingCenterIn() {
         return shoppingCenterIn;
     }
 
-    public void setShoppingCenter(ShoppingCenterIn shoppingCenter) {
-        this.shoppingCenterIn = shoppingCenter;
+    public void setShoppingCenterIn(ShoppingCenterIn shoppingCenterIn) {
+        this.shoppingCenterIn = shoppingCenterIn;
+    }
+
+    public ShoppingCenter getShoppingCenter() {
+        return shoppingCenter;
     }
 
     public void setShoppingCenter(ShoppingCenter shoppingCenter) {
@@ -90,9 +91,10 @@ public class ShoppingListIn implements Serializable {
 
         return new EqualsBuilder()
                 .append(listTitle, that.listTitle)
+                .append(dateShopped, that.dateShopped)
                 .append(categoryInList, that.categoryInList)
                 .append(shoppingCenterIn, that.shoppingCenterIn)
-                .append(dateShopped, that.dateShopped)
+                .append(shoppingCenter, that.shoppingCenter)
                 .isEquals();
     }
 
@@ -100,9 +102,10 @@ public class ShoppingListIn implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(listTitle)
+                .append(dateShopped)
                 .append(categoryInList)
                 .append(shoppingCenterIn)
-                .append(dateShopped)
+                .append(shoppingCenter)
                 .toHashCode();
     }
 
@@ -110,9 +113,10 @@ public class ShoppingListIn implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("listTitle", listTitle)
+                .append("dateShopped", dateShopped)
                 .append("categoryInList", categoryInList)
                 .append("shoppingCenterIn", shoppingCenterIn)
-                .append("dateShopped", dateShopped)
+                .append("shoppingCenter", shoppingCenter)
                 .toString();
     }
 }

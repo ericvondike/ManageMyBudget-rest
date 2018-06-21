@@ -1,7 +1,7 @@
 package com.daklan.budget.control.rest.dto.output;
 
 
-import org.springframework.lang.Nullable;
+import org.jetbrains.annotations.Nullable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
