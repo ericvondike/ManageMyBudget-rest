@@ -1,6 +1,9 @@
 package com.daklan.budget.control.rest.dto.output;
 
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.Nullable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -9,28 +12,17 @@ import java.util.List;
 
 
 public class ShoppingCenterOut implements Serializable {
-    private static final Long serialVersionUID = 451L;
-
-    @NotNull
+    private static final long serialVersionUID = 4512483176459731471L;
     private String code;
-
-    @NotNull
     private String officialname;
-
     /**
      * The given name of the shopping center given by user.
      */
-    @Nullable
     private String givenName;
-    @Nullable
     private String address;
-    @Nullable
     private List<LocalDate> datesOpen;
-    @Nullable
     private String telNumber;
 
-    public ShoppingCenterOut() {
-    }
 
     public String getCode() {
         return code;
@@ -78,5 +70,47 @@ public class ShoppingCenterOut implements Serializable {
 
     public void setTelNumber(String telNumber) {
         this.telNumber = telNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof ShoppingCenterOut)) return false;
+
+        ShoppingCenterOut that = (ShoppingCenterOut) o;
+
+        return new EqualsBuilder()
+                .append(code, that.code)
+                .append(officialname, that.officialname)
+                .append(givenName, that.givenName)
+                .append(address, that.address)
+                .append(datesOpen, that.datesOpen)
+                .append(telNumber, that.telNumber)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(code)
+                .append(officialname)
+                .append(givenName)
+                .append(address)
+                .append(datesOpen)
+                .append(telNumber)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("code", code)
+                .append("officialname", officialname)
+                .append("givenName", givenName)
+                .append("address", address)
+                .append("datesOpen", datesOpen)
+                .append("telNumber", telNumber)
+                .toString();
     }
 }

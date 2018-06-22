@@ -1,4 +1,4 @@
-package com.daklan.budget.control.rest.dto.input;
+package com.daklan.budget.control.rest.dto;
 
 public enum Category {
     FOOD("Food"),

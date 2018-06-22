@@ -5,11 +5,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-//import java.util.Objects;
+import java.math.BigDecimal;
 
 public class ItemIn implements Serializable {
 
-    private static final Long serialVersionUID = 42L;
+    private static final long serialVersionUID = 42L;
 
     /**
      * The name Given by the end user to the item. This is a fre text zone without any control, but maybe for security reasons
@@ -38,7 +38,7 @@ public class ItemIn implements Serializable {
     private Integer numItem;
 
     @NotNull
-    private double itemPrice;
+    private BigDecimal itemPrice;
 
     public Integer getNumItem() {
         return numItem;
@@ -80,11 +80,11 @@ public class ItemIn implements Serializable {
         this.itemDescription = itemDescription;
     }
 
-    public double getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(double itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 

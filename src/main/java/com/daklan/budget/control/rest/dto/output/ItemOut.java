@@ -1,44 +1,38 @@
 package com.daklan.budget.control.rest.dto.output;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-//@Repository
 public class ItemOut implements Serializable {
-    public static final Long serialVersionUID = 451L;
+    private static final long serialVersionUID = 4217934862473914572L;
 
     /**
      * The name Given by the end user to the item. This is a fre text zone without any control, but maybe for security reasons
      */
-    @Nullable
     private String itemGivenName;
 
     /**
      * The code given to the item by the shopping center.
      */
-    @NotNull
     private String itemCode;
 
     /**
      * This is the barcode of the item
      */
-    @NotNull
     private String itemBarcode;
 
     /**
      * This is a free text zone to be filled in for any reason.
      */
-    @Nullable
     private String itemDescription;
 
-    @NotNull
-    private double itemPrice;
-
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    private BigDecimal itemPrice;
 
     public String getItemGivenName() {
         return itemGivenName;
@@ -72,11 +66,50 @@ public class ItemOut implements Serializable {
         this.itemDescription = itemDescription;
     }
 
-    public double getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(double itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof ItemOut)) return false;
+
+        ItemOut itemOut = (ItemOut) o;
+
+        return new EqualsBuilder()
+                .append(itemGivenName, itemOut.itemGivenName)
+                .append(itemCode, itemOut.itemCode)
+                .append(itemBarcode, itemOut.itemBarcode)
+                .append(itemDescription, itemOut.itemDescription)
+                .append(itemPrice, itemOut.itemPrice)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(itemGivenName)
+                .append(itemCode)
+                .append(itemBarcode)
+                .append(itemDescription)
+                .append(itemPrice)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("itemGivenName", itemGivenName)
+                .append("itemCode", itemCode)
+                .append("itemBarcode", itemBarcode)
+                .append("itemDescription", itemDescription)
+                .append("itemPrice", itemPrice)
+                .toString();
     }
 }

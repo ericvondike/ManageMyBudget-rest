@@ -3,7 +3,7 @@ package com.daklan.budget.control.rest.service.impl;
 import com.daklan.budget.control.rest.dto.input.CategoryIn;
 import com.daklan.budget.control.rest.dto.input.ItemIn;
 import com.daklan.budget.control.rest.dto.input.ShoppingListIn;
-import com.daklan.budget.control.rest.dto.output.ItemCategoryOut;
+import com.daklan.budget.control.rest.dto.output.CategoryOut;
 import com.daklan.budget.control.rest.dto.output.ItemOut;
 import com.daklan.budget.control.rest.dto.output.ShoppingCenterOut;
 import com.daklan.budget.control.rest.dto.output.ShoppingListOut;
@@ -46,8 +46,8 @@ public class BasketServiceImpl implements BasketService {
     public ShoppingListOut BuildBasket(ShoppingListIn shoppingListIn, Model model) {
 
         shoppingListOut.setListTitle(shoppingListIn.getListTitle());
-        shoppingListOut.setShoppingCenter(getShoppingCenter(shoppingListIn));
-        shoppingListOut.setItemCategoryList(getItemCategoryList(shoppingListIn));
+        shoppingListOut.setShoppingCenterOut(getShoppingCenter(shoppingListIn));
+        shoppingListOut.setCategoryOuts(getItemCategoryList(shoppingListIn));
 
         return shoppingListOut;
     }
@@ -94,23 +94,22 @@ public class BasketServiceImpl implements BasketService {
      * @param shoppingListIn
      * @return
      */
-    private List<ItemCategoryOut> getItemCategoryList(ShoppingListIn shoppingListIn) {
-        List<ItemCategoryOut> itemCategoryOuts = new ArrayList<>();
+    private List<CategoryOut> getItemCategoryList(ShoppingListIn shoppingListIn) {
+        List<CategoryOut> categoryOuts = new ArrayList<>();
         if(shoppingListIn.getCategoryInList() != null) {
             for(CategoryIn categoryIn : shoppingListIn.getCategoryInList()) {
-                ItemCategoryOut itemCategoryOut = new ItemCategoryOut();
+                CategoryOut categoryOut = new CategoryOut();
 
-                itemCategoryOut.setItemCategoryGivenName(categoryIn.getGivenName());
-                itemCategoryOut.setItemCategory(categoryIn.getOfficialName());
-                itemCategoryOut.setItemCategoryPrice(categoryIn.getItemCategoryPrice());
-                itemCategoryOut.setItemsList(getItemsList(categoryIn));
+                categoryOut.setItemCategoryGivenName(categoryIn.getGivenName());
+                categoryOut.setItemCategory(categoryIn.getCategory());
+                categoryOut.setItemOuts(getItemsList(categoryIn));
 
-                itemCategoryOuts.add(itemCategoryOut);
+                categoryOuts.add(categoryOut);
             }
 
         }
 
-        return itemCategoryOuts;
+        return categoryOuts;
     }
 
     /**

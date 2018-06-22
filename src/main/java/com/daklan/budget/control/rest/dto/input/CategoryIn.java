@@ -1,5 +1,6 @@
 package com.daklan.budget.control.rest.dto.input;
 
+import com.daklan.budget.control.rest.dto.Category;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class CategoryIn implements Serializable {
 
-    private static final Long serialVersionUID = 42L;
+    private static final long serialVersionUID = 42L;
 
     @NotNull
     private Category category;
@@ -33,12 +34,6 @@ public class CategoryIn implements Serializable {
     @NotNull
     List<ItemIn> itemsList = new ArrayList<ItemIn>();
 
-
-    /**
-     * Total price of the items in the category
-     */
-    @NotNull
-    private double itemCategoryPrice;
 
     public Category getCategory() {
         return category;
@@ -72,14 +67,6 @@ public class CategoryIn implements Serializable {
         this.itemsList = itemsList;
     }
 
-    public double getItemCategoryPrice() {
-        return itemCategoryPrice;
-    }
-
-    public void setItemCategoryPrice(double itemCategoryPrice) {
-        this.itemCategoryPrice = itemCategoryPrice;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -90,7 +77,6 @@ public class CategoryIn implements Serializable {
         CategoryIn that = (CategoryIn) o;
 
         return new EqualsBuilder()
-                .append(itemCategoryPrice, that.itemCategoryPrice)
                 .append(givenName, that.givenName)
                 .append(officialName, that.officialName)
                 .append(itemsList, that.itemsList)
@@ -104,7 +90,6 @@ public class CategoryIn implements Serializable {
                 .append(givenName)
                 .append(officialName)
                 .append(itemsList)
-                .append(itemCategoryPrice)
                 .append(category)
                 .toHashCode();
     }
@@ -115,7 +100,6 @@ public class CategoryIn implements Serializable {
                 .append("givenName", givenName)
                 .append("officialName", officialName)
                 .append("itemsList", itemsList)
-                .append("itemCategoryPrice", itemCategoryPrice)
                 .append("category", category)
                 .toString();
     }

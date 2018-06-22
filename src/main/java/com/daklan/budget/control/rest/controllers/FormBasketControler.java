@@ -1,6 +1,7 @@
 package com.daklan.budget.control.rest.controllers;
 
 
+import com.daklan.budget.control.rest.dto.Category;
 import com.daklan.budget.control.rest.dto.input.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
