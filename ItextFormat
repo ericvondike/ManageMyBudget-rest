@@ -1,0 +1,49 @@
+package text2pdf;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfWriter;
+
+public class Text2PdfWithItext {
+
+	public static final String RESULT = "target/hello_letter_itext.pdf";
+
+	public static void main(String[] args) throws DocumentException, IOException {
+		// Page size
+		Document document = new Document(PageSize.LETTER);
+		// Output file
+		File output = new File(RESULT);
+		if (output.exists()) {
+			output.delete();
+		}
+		PdfWriter.getInstance(document, new FileOutputStream(output));
+		// Begin writing
+		document.open();
+		// Add content
+		Font font1 = new Font();
+		font1.setStyle(Font.BOLD);
+		Phrase phrase1 = new Phrase();
+		phrase1.add(new Chunk("Hello "));
+		phrase1.add(new Chunk("World !", font1));
+
+		Font font2 = new Font();
+		font2.setStyle(Font.BOLDITALIC);
+		Phrase phrase2 = new Phrase();
+		phrase2.add(new Chunk("Live from "));
+		phrase2.add(new Chunk("MACIF !", font2));
+
+		document.add(phrase1);
+		document.add(Chunk.NEWLINE);
+		document.add(phrase2);
+
+		// End writing
+		document.close();
+	}
+}
