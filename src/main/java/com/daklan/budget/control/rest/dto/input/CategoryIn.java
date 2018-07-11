@@ -1,6 +1,6 @@
 package com.daklan.budget.control.rest.dto.input;
 
-import com.daklan.budget.control.rest.dto.Category;
+import com.daklan.budget.control.rest.dto.input.enums.FoodDrinkCategory;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,17 +16,12 @@ public class CategoryIn implements Serializable {
     private static final long serialVersionUID = 42L;
 
     @NotNull
-    private Category category;
+    private FoodDrinkCategory category;
     /**
      * The free text zone entered by the customer.
      */
     private String givenName;
 
-    /**
-     * The classification made by the category.
-     */
-    @NotNull
-    private String officialName;
 
     /**
      * The list of the items in the category.
@@ -35,12 +30,12 @@ public class CategoryIn implements Serializable {
     List<ItemIn> itemsList = new ArrayList<ItemIn>();
 
 
-    public Category getCategory() {
+    public FoodDrinkCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(FoodDrinkCategory foodDrinkCategory) {
+        this.category = foodDrinkCategory;
     }
 
     public String getGivenName() {
@@ -49,14 +44,6 @@ public class CategoryIn implements Serializable {
 
     public void setGivenName(String givenName) {
         this.givenName = givenName;
-    }
-
-    public String getOfficialName() {
-        return officialName;
-    }
-
-    public void setOfficialName(String officialName) {
-        this.officialName = officialName;
     }
 
     public List<ItemIn> getItemsList() {
@@ -78,7 +65,6 @@ public class CategoryIn implements Serializable {
 
         return new EqualsBuilder()
                 .append(givenName, that.givenName)
-                .append(officialName, that.officialName)
                 .append(itemsList, that.itemsList)
                 .append(category, that.category)
                 .isEquals();
@@ -88,7 +74,6 @@ public class CategoryIn implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(givenName)
-                .append(officialName)
                 .append(itemsList)
                 .append(category)
                 .toHashCode();
@@ -98,7 +83,6 @@ public class CategoryIn implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("givenName", givenName)
-                .append("officialName", officialName)
                 .append("itemsList", itemsList)
                 .append("category", category)
                 .toString();

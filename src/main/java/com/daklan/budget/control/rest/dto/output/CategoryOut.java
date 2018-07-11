@@ -1,7 +1,7 @@
 package com.daklan.budget.control.rest.dto.output;
 
 
-import com.daklan.budget.control.rest.dto.Category;
+import com.daklan.budget.control.rest.dto.input.enums.FoodDrinkCategory;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -26,7 +26,7 @@ public class CategoryOut implements Serializable {
      * The classification made by the category.
      */
     @NotNull
-    private Category itemCategory;
+    private FoodDrinkCategory itemCategory;
 
     /**
      * The list of the items in the category.
@@ -47,11 +47,11 @@ public class CategoryOut implements Serializable {
         this.itemCategoryGivenName = itemCategoryGivenName;
     }
 
-    public Category getItemCategory() {
+    public FoodDrinkCategory getItemCategory() {
         return itemCategory;
     }
 
-    public void setItemCategory(Category itemCategory) {
+    public void setItemCategory(FoodDrinkCategory itemCategory) {
         this.itemCategory = itemCategory;
     }
 

@@ -1,0 +1,103 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"></script>
+
+
+    <link th:href="@{/css/custom.css}" href="../static/css/custom.css" rel="stylesheet" media="screen"/>
+    <title>Your Basket</title>
+</head>
+<body>
+<h1>
+    Your Basket:
+</h1>
+<!--<table th:object="${result}" boder="1">
+    <tr>
+        <th>
+            Shopping List Title:
+        </th>
+    </tr>
+    <tr>
+
+        <td th:text="*{listTitle}"></td>
+    </tr>
+</table>-->
+<div class="form-group" th:class="form-group" th:object="${basket}">
+    <label class="col-sm-2 control-label">List Title:</label>
+    <div class="col-sm-10">
+        <p th:text="*{listTitle}">
+        <div class="row">
+            <h4>Shopping Center</h4>
+            <div class="col-sm-10">
+                <label class="col-sm-2 control-label">Official Name:</label>
+                <div class="col-sm-10">
+                    <p th:text="*{shoppingCenter.name()}"></p>
+                </div>
+
+                <label class="col-sm-2 control-label">Given Name:</label>
+                <div class="col-sm-10">
+                    <p th:text="*{shoppingCenterIn.givenName}"></p>
+                </div>
+
+                <label class="col-sm-2 control-label">Address:</label>
+                <div class="col-sm-10">
+                    <p th:text="*{shoppingCenterIn.address}"></p>
+                </div>
+                <label class="col-sm-2 control-label">Tel Number:</label>
+                <div class="col-sm-10">
+                    <p th:text="*{shoppingCenterIn.telNumber}"></p>
+                </div>
+                <label class="col-sm-2 control-label">Open Dates:</label>
+                <table th:border="1">
+                    <tr th:each="date : *{shoppingCenterIn.datesOpen}">
+                        <td th:text="${date}"></td>
+                    </tr>
+                </table>
+                <!--<div class="col-sm-10" th:each="date : *{shoppingCenter.datesOpen}">-->
+                    <!--<p th:text="${date}"/>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+<div class="seedstarterlist" th:unless="${#lists.isEmpty(allSeedStarters)}">
+
+    <h2 th:text="#{title.list}">List of Seed Starters</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{seedstarter.datePlanted}">Date Planted</th>
+            <th th:text="#{seedstarter.covered}">Covered</th>
+            <th th:text="#{seedstarter.type}">Type</th>
+            <th th:text="#{seedstarter.features}">Features</th>
+            <th th:text="#{seedstarter.rows}">Rows</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sb : ${allSeedStarters}">
+            <td th:text="${{sb.datePlanted}}">13/01/2011</td>
+            <td th:text="#{|bool.${sb.covered}|}">yes</td>
+            <td th:text="#{|seedstarter.type.${sb.type}|}">Wireframe</td>
+            <td th:text="${#strings.arrayJoin(
+                             #messages.arrayMsg(
+                               #strings.arrayPrepend(sb.features,'seedstarter.feature.')),
+                             ', ')}">Electric Heating, Turf</td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr th:each="row,rowStat : ${sb.rows}">
+                        <td th:text="${rowStat.count}">1</td>
+                        <td th:text="${row.variety.name}">Thymus Thymi</td>
+                        <td th:text="${row.seedsPerCell}">12</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

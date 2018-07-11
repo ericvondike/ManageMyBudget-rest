@@ -1,7 +1,9 @@
 package com.daklan.budget.control.rest.dto.input;
 
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -14,8 +16,8 @@ public class ItemIn implements Serializable {
     /**
      * The name Given by the end user to the item. This is a fre text zone without any control, but maybe for security reasons
      */
-
-    private String itemGivenName;
+    @NotNull
+    private String itemName;
 
     /**
      * The code given to the item by the shopping center.
@@ -29,10 +31,6 @@ public class ItemIn implements Serializable {
     @NotNull
     private String itemBarcode;
 
-    /**
-     * This is a free text zone to be filled in for any reason.
-     */
-    private String itemDescription;
 
     @NotNull
     private Integer numItem;
@@ -49,11 +47,11 @@ public class ItemIn implements Serializable {
     }
 
     public String getItemGivenName() {
-        return itemGivenName;
+        return itemName;
     }
 
-    public void setItemGivenName(String itemGivenName) {
-        this.itemGivenName = itemGivenName;
+    public void setItemName(String itemGivenName) {
+        this.itemName = itemGivenName;
     }
 
     public String getItemCode() {
@@ -70,14 +68,6 @@ public class ItemIn implements Serializable {
 
     public void setItemBarcode(String itemBarcode) {
         this.itemBarcode = itemBarcode;
-    }
-
-    public String getItemDescription() {
-        return itemDescription;
-    }
-
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
     }
 
     public BigDecimal getItemPrice() {
@@ -98,10 +88,9 @@ public class ItemIn implements Serializable {
 
         return new EqualsBuilder()
                 .append(itemPrice, itemIn.itemPrice)
-                .append(itemGivenName, itemIn.itemGivenName)
+                .append(itemName, itemIn.itemName)
                 .append(itemCode, itemIn.itemCode)
                 .append(itemBarcode, itemIn.itemBarcode)
-                .append(itemDescription, itemIn.itemDescription)
                 .append(numItem, itemIn.numItem)
                 .isEquals();
     }
@@ -109,10 +98,9 @@ public class ItemIn implements Serializable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(itemGivenName)
+                .append(itemName)
                 .append(itemCode)
                 .append(itemBarcode)
-                .append(itemDescription)
                 .append(numItem)
                 .append(itemPrice)
                 .toHashCode();
@@ -121,10 +109,9 @@ public class ItemIn implements Serializable {
     @Override
     public String toString() {
         return "Item{" +
-                "itemGivenName='" + itemGivenName + '\'' +
+                "itemGivenName='" + itemName + '\'' +
                 ", itemCode='" + itemCode + '\'' +
                 ", itemBarcode='" + itemBarcode + '\'' +
-                ", itemDescription='" + itemDescription + '\'' +
                 ", itemPrice=" + itemPrice + '\'' +
                 ", numItem" + numItem +
                 '}';

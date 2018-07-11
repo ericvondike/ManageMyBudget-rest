@@ -1,7 +1,7 @@
 package com.daklan.budget.control.rest.controllers;
 
 
-import com.daklan.budget.control.rest.dto.Category;
+import com.daklan.budget.control.rest.dto.input.enums.FoodDrinkCategory;
 import com.daklan.budget.control.rest.dto.input.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +27,8 @@ public class FormBasketControler {
     }
 
     @ModelAttribute("allCategories")
-    public List<Category> populateCategories() {
-        return Arrays.asList(Category.ALL);
+    public List<FoodDrinkCategory> populateCategories() {
+        return Arrays.asList(FoodDrinkCategory.ALL);
     }
 
     @RequestMapping(value = "/basketform")
@@ -98,5 +98,12 @@ public class FormBasketControler {
         model.addAttribute("basketForm", shoppingListIn);
 
         return "basketform";
+    }
+
+    @RequestMapping(value = "/basketform", params={"output"})
+    public String displayBasket(final ShoppingListIn shoppingListIn, final Model model) {
+        model.addAttribute("basket", shoppingListIn);
+
+        return "basket";
     }
 }
