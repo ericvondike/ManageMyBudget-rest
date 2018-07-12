@@ -3,6 +3,7 @@ package com.daklan.budget.control.rest.dto.input;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
 import javax.validation.constraints.NotNull;
@@ -31,12 +32,22 @@ public class ItemIn implements Serializable {
     @NotNull
     private String itemBarcode;
 
-
+    /**
+     * Number of a specific item in the basket
+     */
     @NotNull
     private Integer numItem;
 
+    /**
+     * The price of an individual item
+     */
     @NotNull
     private BigDecimal itemPrice;
+
+    /**
+     * The orgin of the item. This field can be null.
+     */
+    private String origin;
 
     public Integer getNumItem() {
         return numItem;
@@ -46,7 +57,7 @@ public class ItemIn implements Serializable {
         this.numItem = numItem;
     }
 
-    public String getItemGivenName() {
+    public String getItemName() {
         return itemName;
     }
 
@@ -78,6 +89,14 @@ public class ItemIn implements Serializable {
         this.itemPrice = itemPrice;
     }
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,11 +106,12 @@ public class ItemIn implements Serializable {
         ItemIn itemIn = (ItemIn) o;
 
         return new EqualsBuilder()
-                .append(itemPrice, itemIn.itemPrice)
                 .append(itemName, itemIn.itemName)
                 .append(itemCode, itemIn.itemCode)
                 .append(itemBarcode, itemIn.itemBarcode)
                 .append(numItem, itemIn.numItem)
+                .append(itemPrice, itemIn.itemPrice)
+                .append(origin, itemIn.origin)
                 .isEquals();
     }
 
@@ -103,18 +123,20 @@ public class ItemIn implements Serializable {
                 .append(itemBarcode)
                 .append(numItem)
                 .append(itemPrice)
+                .append(origin)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return "Item{" +
-                "itemGivenName='" + itemName + '\'' +
-                ", itemCode='" + itemCode + '\'' +
-                ", itemBarcode='" + itemBarcode + '\'' +
-                ", itemPrice=" + itemPrice + '\'' +
-                ", numItem" + numItem +
-                '}';
+        return new ToStringBuilder(this)
+                .append("itemName", itemName)
+                .append("itemCode", itemCode)
+                .append("itemBarcode", itemBarcode)
+                .append("numItem", numItem)
+                .append("itemPrice", itemPrice)
+                .append("origin", origin)
+                .toString();
     }
 }
 

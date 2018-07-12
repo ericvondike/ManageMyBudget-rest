@@ -14,7 +14,7 @@ public enum WorldFood {
 
     public static WorldFood forName(final String name) {
         if(name == null) {
-            throw new IllegalArgumentException("Name cannot be null for FoodDrinkCategory");
+            throw new IllegalArgumentException("Name cannot be null for FoodDrinkShelf");
         }
         String upperName = name.toUpperCase();
         switch (upperName) {
@@ -33,7 +33,7 @@ public enum WorldFood {
             case "OTHER":
                 return OTHER;
             default:
-                throw new IllegalArgumentException("FoodDrinkCategory \"" + name +"\"does not correspond to any existing category");
+                throw new IllegalArgumentException("FoodDrinkShelf \"" + name +"\"does not correspond to any existing category");
         }
     }
 

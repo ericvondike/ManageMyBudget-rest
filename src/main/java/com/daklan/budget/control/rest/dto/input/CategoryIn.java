@@ -1,6 +1,6 @@
 package com.daklan.budget.control.rest.dto.input;
 
-import com.daklan.budget.control.rest.dto.input.enums.FoodDrinkCategory;
+import com.daklan.budget.control.rest.dto.input.enums.FoodDrinkShelf;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,7 +16,7 @@ public class CategoryIn implements Serializable {
     private static final long serialVersionUID = 42L;
 
     @NotNull
-    private FoodDrinkCategory category;
+    private FoodDrinkShelf category;
     /**
      * The free text zone entered by the customer.
      */
@@ -30,12 +30,12 @@ public class CategoryIn implements Serializable {
     List<ItemIn> itemsList = new ArrayList<ItemIn>();
 
 
-    public FoodDrinkCategory getCategory() {
+    public FoodDrinkShelf getCategory() {
         return category;
     }
 
-    public void setCategory(FoodDrinkCategory foodDrinkCategory) {
-        this.category = foodDrinkCategory;
+    public void setCategory(FoodDrinkShelf foodDrinkShelf) {
+        this.category = foodDrinkShelf;
     }
 
     public String getGivenName() {

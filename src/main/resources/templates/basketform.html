@@ -61,21 +61,21 @@
                     <!--</div>-->
                     <!--<div class="col-sm-10">-->
                         <!--<fieldset>-->
-                            <!--<legend th:text="#{foodDrinkCategory.list}">Categories:</legend>-->
+                            <!--<legend th:text="#{foodDrinkShelf.list}">Categories:</legend>-->
                             <!--<div>-->
                                 <!--<table>-->
                                     <!--<thead>-->
                                     <!--<tr>-->
-                                        <!--<th th:text="#{foodDrinkCategory.givenName}"></th>-->
-                                        <!--<th th:text="#{foodDrinkCategory.officialName}"></th>-->
-                                        <!--<th th:text="#{foodDrinkCategory.itemList}"></th>-->
+                                        <!--<th th:text="#{foodDrinkShelf.givenName}"></th>-->
+                                        <!--<th th:text="#{foodDrinkShelf.officialName}"></th>-->
+                                        <!--<th th:text="#{foodDrinkShelf.itemList}"></th>-->
                                         <!--<th>-->
-                                            <!--<button type="submit" name="addCategory" th:text="#{foodDrinkCategory.row.add}">ADD New FoodDrinkCategory</button>-->
+                                            <!--<button type="submit" name="addCategory" th:text="#{foodDrinkShelf.row.add}">ADD New FoodDrinkShelf</button>-->
                                         <!--</th>-->
                                     <!--</tr>-->
                                     <!--</thead>-->
                                     <!--<tbody>-->
-                                    <!--<tr th:each="foodDrinkCategory,catIndex : *{categoryInList}">-->
+                                    <!--<tr th:each="foodDrinkShelf,catIndex : *{categoryInList}">-->
                                         <!--<td>-->
                                             <!--<input type="text" th:field="*{categoryInList[__${catIndex.index}__].givenName}"/>-->
                                         <!--</td>-->
@@ -97,7 +97,7 @@
                                                 <!--</tr>-->
                                                 <!--</thead>-->
                                                 <!--<tbody>-->
-                                                <!--<tr th:each="item, itemIndex: ${foodDrinkCategory.itemsList}" th:name="itemCat" th:field="${catIndex.index}">-->
+                                                <!--<tr th:each="item, itemIndex: ${foodDrinkShelf.itemsList}" th:name="itemCat" th:field="${catIndex.index}">-->
                                                     <!--<td>-->
                                                         <!--<input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemGivenName}">-->
                                                     <!--</td>-->
@@ -115,7 +115,7 @@
                                                     <!--</td>-->
                                                     <!--<td>-->
                                                         <!--&lt;!&ndash;<p th:text="${item.itemPrice}"/>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<p th:text="${foodDrinkCategory.givenName}"/>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<p th:text="${foodDrinkShelf.givenName}"/>&ndash;&gt;-->
                                                         <!--&lt;!&ndash;<button type="submit" name="removeItem" th:value="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__]}" th:text="#{item.remove.row}"></button>&ndash;&gt;-->
                                                         <!--&lt;!&ndash;<button type="submit" name="removeItem" th:value="${itemIndex.index}" th:text="#{item.remove.row}"></button>&ndash;&gt;-->
                                                         <!--<a th:text="#{item.remove.row}" th:href="@{/basketform/{categoryIndex}/{itemIndex}(categoryIndex = ${catIndex.index}, itemIndex = ${itemIndex.index})}">Remove This Item</a>-->
@@ -125,7 +125,7 @@
                                             <!--</table>-->
                                         <!--</td>-->
                                         <!--<td>-->
-                                            <!--<button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{foodDrinkCategory.row.remove}">Remove the FoodDrinkCategory</button>-->
+                                            <!--<button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{foodDrinkShelf.row.remove}">Remove the FoodDrinkShelf</button>-->
                                         <!--</td>-->
                                     <!--</tr>-->
                                     <!--</tbody>-->
@@ -188,23 +188,23 @@
             <!--</div>-->
 
             <div>
-                <label th:text="#{foodDrinkCategory.list}">Category</label>
+                <label th:text="#{foodDrinkShelf.list}">Category</label>
                 <table>
                     <thead>
                     <tr>
-                        <th th:text="#{foodDrinkCategory.count}">Category Count</th>
-                        <th th:text="#{foodDrinkCategory.name}">Category</th>
-                        <th th:text="#{foodDrinkCategory.itemList}">Item List</th>
+                        <th th:text="#{foodDrinkShelf.count}">Category Count</th>
+                        <th th:text="#{foodDrinkShelf.name}">Category</th>
+                        <th th:text="#{foodDrinkShelf.itemList}">Item List</th>
                         <th>
-                            <button type="submit" name="addCategory" th:text="#{foodDrinkCategory.row.add}">Add New Category</button>
+                            <button type="submit" name="addCategory" th:text="#{foodDrinkShelf.row.add}">Add New Category</button>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="foodDrinkCategory,catIndex : *{categoryInList}">
+                    <tr th:each="foodDrinkShelf,catIndex : *{categoryInList}">
                         <td th:text="${catIndex.count}">1</td>
                         <td>
-                            <select th:field="*{categoryInList[__${catIndex.index}__].foodDrinkCategory}">
+                            <select th:field="*{categoryInList[__${catIndex.index}__].foodDrinkShelf}">
                                 <option th:each="cat : ${allCategories}" th:value="${cat}" th:text="#{${'cat.name.' + cat}}">Thymus Thymi</option>
                             </select>
                         </td>
@@ -224,7 +224,7 @@
                                     </tr>
                                     </thead>
                                     <tbody class="itemTableBody">
-                                    <tr th:each="item, itemIndex: ${foodDrinkCategory.itemsList}" th:name="itemCat" th:field="${catIndex.index}">
+                                    <tr th:each="item, itemIndex: ${foodDrinkShelf.itemsList}" th:name="itemCat" th:field="${catIndex.index}">
                                         <td>
                                             <input type="text" th:field="*{categoryInList[__${catIndex.index}__].itemsList[__${itemIndex.index}__].itemGivenName}" class="textClass">
                                         </td>
@@ -247,7 +247,7 @@
                             </div>
                         </td>
                         <td>
-                            <button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{foodDrinkCategory.row.remove}" class="addItem">Remove the Category</button>
+                            <button type="submit" name="removeCategory" th:value="${catIndex.index}" th:text="#{foodDrinkShelf.row.remove}" class="addItem">Remove the Category</button>
                         </td>
                     </tr>
                     </tbody>

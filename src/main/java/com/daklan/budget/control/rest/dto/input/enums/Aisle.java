@@ -2,9 +2,10 @@ package com.daklan.budget.control.rest.dto.input.enums;
 
 public enum Aisle {
     FOODDRINK("Food and Drinks"),
-    HIMEKITCHEN("Home and Kitchen"),
+    HOUSEHOLD("Household"),
+    KITCHEN("Kitchen"),
     PET("pet"),
-    HEALTHBEAUTY("Health and Buauty"),
+    HEALTHBEAUTY("Health and Beauty"),
     BABY("Baby"),
     OUTDOORSPOSRTS("Outdoor and Sports"),
     OFFICESCHOOL("Office and School"),
@@ -14,19 +15,21 @@ public enum Aisle {
     CLEARANCE("Clearance"),
     SPECIALOFFERS("Special Offers");
 
-    public static final Aisle[] ALL = {FOODDRINK, HIMEKITCHEN, PET, HEALTHBEAUTY, BABY, OUTDOORSPOSRTS, OFFICESCHOOL, FLOWERS, ELECTRONICS, TOYS, CLEARANCE, SPECIALOFFERS};
+    public static final Aisle[] ALL = {FOODDRINK, HOUSEHOLD, KITCHEN, PET, HEALTHBEAUTY, BABY, OUTDOORSPOSRTS, OFFICESCHOOL, FLOWERS, ELECTRONICS, TOYS, CLEARANCE, SPECIALOFFERS};
     private String  name;
 
     public static Aisle forName(final String name) {
         if(name == null) {
-            throw new IllegalArgumentException("Name cannot be null for shelf");
+            throw new IllegalArgumentException("Name cannot be null for aisle");
         }
         String upperName = name.toUpperCase();
         switch (upperName) {
             case "FOODDRINK":
                 return FOODDRINK;
-            case "HIMEKITCHEN":
-                return HIMEKITCHEN;
+            case "HOUSEHOLD":
+                return HOUSEHOLD;
+            case "KITCHEN":
+                return KITCHEN;
             case "HEALTHBEAUTY":
                 return HEALTHBEAUTY;
             case "BABY":
