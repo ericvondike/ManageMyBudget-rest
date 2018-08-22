@@ -1,17 +1,15 @@
 package json;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import com.daklan.controlbudget.rest.controllers.BasketController;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Scanner;
 
 public class ShoppingListJsonOperationIntegrationTest {
 
