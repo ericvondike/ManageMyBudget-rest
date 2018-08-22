@@ -1,0 +1,22 @@
+{
+  "shoppinglist" : {
+    "category" : {
+      "name" : "clothes",
+      "price" : "12.35",
+      "item" : [
+        {
+          "name" : "socks",
+          "number" : "1",
+          "unitprice" : "3.45",
+          "totalprice" : "3.45"
+        },
+        {
+          "name" : "TShirt",
+          "number" : "2",
+          "unitprice" : "17.29",
+          "totalprice" : "34.58"
+        }
+      ]
+    }
+  }
+}
