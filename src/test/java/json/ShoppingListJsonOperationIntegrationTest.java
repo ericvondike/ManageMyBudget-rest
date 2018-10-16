@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import jdk.nashorn.internal.ir.ObjectNode;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
@@ -17,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,37 +29,41 @@ public class ShoppingListJsonOperationIntegrationTest {
 
     private static ObjectMapper mapper = new ObjectMapper();
 
+    private static final String jostTemplate = "static/teatedList.json";
     private final String fileName = "static/list.json";
     private final String filePath = "src/main/resources/static/list.json";
+    private static final String jsonPathRequest = "/shoppinglist";
     private final String delimiter = "\\Z";
 
     private final InputStream jsonInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
     private final String jsonDataSourceString = new Scanner(jsonInputStream, "UTF-8").useDelimiter(delimiter).next();
 
-   private JSONParser jsonParser = new JSONParser();
-
-
-    {
-        try {
-           Object obj = jsonParser.parse(new FileReader(filePath));
-            JSONObject shoppinglistObject = (JSONObject) obj;
-            LOGGER.info("ShoppingList object :  {}", shoppinglistObject.toString());
-            JSONObject categoryObject = (JSONObject) shoppinglistObject.get("category");
-//            LOGGER.info(categoryObject.toString());
+//    private JSONParser jsonParser = new JSONParser();
+//
+//
+//    {
+//        try {
+//            Object obj = jsonParser.parse(new FileReader(filePath));
+//            JSONObject shoppinglistObject = (JSONObject) obj;
+//            ObjectNode shoppinglistObjectNode = (ObjectNode) obj;
+//            LOGGER.info("ShoppingList object :  {}", shoppinglistObjectNode.toString());
+////            JSONObject categoryObject = (JSONObject) shoppinglistObject.get("category");
+//            ObjectNode categoryObject = (ObjectNode) shoppinglistObjectNode.get("category");
+//            LOGGER.info(categoryObject.getType().toString());
 //            JSONArray itemArray = (JSONArray) shoppinglistObject.get("shoppinglist");
 //
 //            Iterator<Object> iterator = itemArray.iterator();
 //            while (iterator.hasNext()) {
 //                LOGGER.info((String) iterator.next());
 //            }
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Test
@@ -87,8 +94,8 @@ public class ShoppingListJsonOperationIntegrationTest {
 
     @Test
     public void shoud_return_jsonNode() throws IOException {
-        JsonNode rootNode =  mapper.readTree(jsonInputStream);
-        LOGGER.info("\n\n\nroot node is : {} ", rootNode.asText());
+        JsonNode rootNode = mapper.readTree(filePath);
+//        LOGGER.info("\n\n\nroot node is : {} ", rootNode.asText());
         JsonNode itemNode = rootNode.path("category").path("item");
         LOGGER.info(itemNode.asText());
     }

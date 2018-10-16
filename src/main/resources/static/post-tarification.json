@@ -1,0 +1,24 @@
+{
+  "xsiType": "com.kmse.hicp.dto.core.common.generic.GenericRequest",
+  "resourceTag": "InsuranceQuotation",
+  "msg": {
+    "xsiType": "com.kmse.hicp.model.core.production.insurance.common.contract.IndividualInsuranceQuotation",
+    "subscriber": {
+      "xsiType": "core.production.common.transverse.CustomerCatWire",
+      "partyWire": {
+        "xsiType": "core.production.common.transverse.PersonWire"
+      }
+    },
+    "insuranceCustomizedOffer": {
+      "xsiType": "com.kmse.hicp.model.core.production.insurance.common.contract.InsuranceCustomizedOffer"
+    },
+    "riskElementList": [
+      {
+        "xsiType": "com.kmse.hicp.dto.core.production.insurance.risk.preset.FuneralService",
+        "capitalGoal": "CAPITAL_GOAL.FUNERAL",
+        "qoc": "FUNERALSERVICE_QOC.3",
+        "category": "FUNERALSERVICE_CAT.CREMA"
+      }
+    ]
+  }
+}
