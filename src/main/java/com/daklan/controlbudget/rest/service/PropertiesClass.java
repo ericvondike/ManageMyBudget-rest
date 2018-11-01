@@ -4,7 +4,7 @@ import com.daklan.controlbudget.rest.configuration.KmsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class PropertiesClass {
 
     private KmsProperties kmsProperties;

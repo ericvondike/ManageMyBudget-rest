@@ -2,9 +2,10 @@ package com.daklan.controlbudget.rest.controllers;
 
 
 
-import com.daklan.controlbudget.rest.dto.output.ShoppingListOut;
-import com.daklan.controlbudget.rest.dto.input.ShoppingListIn;
+import com.daklan.controlbudget.rest.model.dto.output.ShoppingListOut;
+import com.daklan.controlbudget.rest.model.dto.input.ShoppingListIn;
 import com.daklan.controlbudget.rest.service.BasketService;
+import com.daklan.controlbudget.rest.service.JsonPathTestService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +24,19 @@ public class BasketController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BasketController.class);
 
     private BasketService service;
+    private JsonPathTestService jsonPathTestService;
 
     @Autowired
-    public BasketController(BasketService service) {
+    public BasketController(BasketService service, JsonPathTestService jsonPathTestService) {
         this.service = service;
+        this.jsonPathTestService = jsonPathTestService;
     }
+
+
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShoppingListOut> buildBasket(@RequestBody ShoppingListIn shoppingListIn) {
+        String testFilePath = jsonPathTestService.callPropertiesFile();
         ShoppingListOut shoppingListOut = service.BuildBasket(shoppingListIn);
         return ResponseEntity.ok(shoppingListOut);
     }

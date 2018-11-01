@@ -1,12 +1,12 @@
 package com.daklan.controlbudget.rest.service.impl;
 
 
-import com.daklan.controlbudget.rest.dto.input.ItemCategoryIn;
-import com.daklan.controlbudget.rest.dto.input.ItemIn;
-import com.daklan.controlbudget.rest.dto.input.ShoppingListIn;
-import com.daklan.controlbudget.rest.dto.output.ItemCategoryOut;
-import com.daklan.controlbudget.rest.dto.output.ItemOut;
-import com.daklan.controlbudget.rest.dto.output.ShoppingListOut;
+import com.daklan.controlbudget.rest.model.dto.input.ItemCategoryIn;
+import com.daklan.controlbudget.rest.model.dto.input.ItemIn;
+import com.daklan.controlbudget.rest.model.dto.input.ShoppingListIn;
+import com.daklan.controlbudget.rest.model.dto.output.ItemCategoryOut;
+import com.daklan.controlbudget.rest.model.dto.output.ItemOut;
+import com.daklan.controlbudget.rest.model.dto.output.ShoppingListOut;
 import com.daklan.controlbudget.rest.service.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
