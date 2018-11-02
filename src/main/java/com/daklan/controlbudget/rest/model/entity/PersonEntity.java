@@ -1,10 +1,6 @@
 package com.daklan.controlbudget.rest.model.entity;
 
-import com.daklan.controlbudget.rest.model.entity.address.AddressEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.EmailEntity;
-import com.daklan.controlbudget.rest.model.entity.contactinformation.FaxEntity;
-import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,46 +13,39 @@ import java.util.Set;
 @Table(name = "person")
 public class PersonEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(position = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "fisrt_name", nullable = false)
-    @ApiModelProperty(position = 2)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
-    @ApiModelProperty(position = 3)
     private String lastName;
 
     @Column(name = "birth_date", nullable = false)
-    @ApiModelProperty(position = 4)
     private LocalDate birthDate;
 
     @Column(name = "status", nullable = false)
-    @ApiModelProperty(position = 5)
     private String status;
 
-    @Column(name = "middle_name", nullable = true)
-    @ApiModelProperty(position = 6)
+    @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "mrital_name", nullable = true)
-    @ApiModelProperty(position = 7)
+    @Column(name = "marital_name")
     private String maritalName;
 
-
-    @OneToMany(mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
     private Set<EmailEntity> emails;
 
-    @OneToMany(mappedBy = "person")
-    private Set<TelephoneEntity> telephones;
-
-    @OneToMany(mappedBy = "person")
-    private Set<FaxEntity> faxes;
-
-    @OneToMany(mappedBy = "person")
-    private Set<AddressEntity> addresses;
+//    @OneToMany(mappedBy = "person")
+//    private Set<TelephoneEntity> telephones;
+//
+//    @OneToMany(mappedBy = "person")
+//    private Set<FaxEntity> faxes;
+//
+//    @OneToMany(mappedBy = "person")
+//    private Set<AddressEntity> addresses;
 
     public Integer getId() {
         return id;
@@ -122,27 +111,27 @@ public class PersonEntity {
         this.emails = emails;
     }
 
-    public Set<TelephoneEntity> getTelephones() {
-        return telephones;
-    }
-
-    public void setTelephones(Set<TelephoneEntity> telephones) {
-        this.telephones = telephones;
-    }
-
-    public Set<FaxEntity> getFaxes() {
-        return faxes;
-    }
-
-    public void setFaxes(Set<FaxEntity> faxes) {
-        this.faxes = faxes;
-    }
-
-    public Set<AddressEntity> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<AddressEntity> addresses) {
-        this.addresses = addresses;
-    }
+//    public Set<TelephoneEntity> getTelephones() {
+//        return telephones;
+//    }
+//
+//    public void setTelephones(Set<TelephoneEntity> telephones) {
+//        this.telephones = telephones;
+//    }
+//
+//    public Set<FaxEntity> getFaxes() {
+//        return faxes;
+//    }
+//
+//    public void setFaxes(Set<FaxEntity> faxes) {
+//        this.faxes = faxes;
+//    }
+//
+//    public Set<AddressEntity> getAddresses() {
+//        return addresses;
+//    }
+//
+//    public void setAddresses(Set<AddressEntity> addresses) {
+//        this.addresses = addresses;
+//    }
 }

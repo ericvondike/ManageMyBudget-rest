@@ -1,7 +1,6 @@
 package com.daklan.controlbudget.rest.model.entity.contactinformation;
 
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
-import com.daklan.controlbudget.rest.model.enums.ContactUse;
 
 import javax.persistence.*;
 
@@ -16,12 +15,14 @@ public class FaxEntity {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "id_person", nullable = false)
     PersonEntity person;
 
     //The fax number of the Person
+    @Column(name = "fax_number")
     private String identifiedBy;
 
+    @Column(name = "use")
     private String use;
 
     public String getId() {

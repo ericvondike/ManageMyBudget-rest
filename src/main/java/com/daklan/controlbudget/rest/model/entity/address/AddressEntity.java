@@ -1,7 +1,6 @@
 package com.daklan.controlbudget.rest.model.entity.address;
 
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
-import com.daklan.controlbudget.rest.model.enums.AddressUse;
 
 import javax.persistence.*;
 
@@ -16,17 +15,32 @@ public class AddressEntity {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "id_person", nullable = false)
     private PersonEntity person;
 
+    @Column(name = "street_number")
     private String streetNumber;
+
+    @Column(name = "street_name")
     private String streetName;
+
+    @Column(name = "street_type")
     private String streetType;
+
+    @Column(name = "postal_code")
     private String postalCode;
+
+    @Column(name = "city_name")
     private String cityName;
+
+    @Column(name = "country_name")
     private String countryName;
+
+    @Column(name = "address_completion")
     private String addressCompletion;
-    private AddressUse use;
+
+    @Column(name = "use")
+    private String use;
 
     public String getId() {
         return id;
@@ -100,11 +114,11 @@ public class AddressEntity {
         this.addressCompletion = addressCompletion;
     }
 
-    public AddressUse getUse() {
+    public String getUse() {
         return use;
     }
 
-    public void setUse(AddressUse use) {
+    public void setUse(String use) {
         this.use = use;
     }
 }

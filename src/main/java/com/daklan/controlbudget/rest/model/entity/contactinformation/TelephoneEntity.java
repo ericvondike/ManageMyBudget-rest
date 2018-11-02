@@ -1,8 +1,6 @@
 package com.daklan.controlbudget.rest.model.entity.contactinformation;
 
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
-import com.daklan.controlbudget.rest.model.enums.ContactUse;
-import com.daklan.controlbudget.rest.model.enums.TelephoneType;
 
 import javax.persistence.*;
 
@@ -17,13 +15,17 @@ public class TelephoneEntity {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "id_person", nullable = false)
     private PersonEntity person;
 
     //The telephone number of the Person
+    @Column(name = "telephone_number")
     private String identifiedBy;
 
+    @Column(name = "use")
     private String use;
+
+    @Column(name = "type")
     private String type;
 
     public String getId() {

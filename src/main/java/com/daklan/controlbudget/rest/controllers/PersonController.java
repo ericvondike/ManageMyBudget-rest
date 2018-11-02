@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -39,10 +36,11 @@ public class PersonController {
         return ResponseEntity.ok(personCreateDtoOut);
     }
 
-    @RequestMapping(value = "/update", method = POST)
+    @RequestMapping(value = "/update/{id}", method = POST)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonCreateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn) {
-        PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn);
+    public ResponseEntity<PersonCreateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn,
+                                                           @PathVariable String id) {
+        PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Integer.parseInt(id));
 
         return ResponseEntity.ok(personCreateDtoOut);
     }

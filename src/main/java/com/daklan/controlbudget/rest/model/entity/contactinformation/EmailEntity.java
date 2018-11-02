@@ -1,7 +1,6 @@
 package com.daklan.controlbudget.rest.model.entity.contactinformation;
 
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
-import com.daklan.controlbudget.rest.model.enums.ContactUse;
 
 import javax.persistence.*;
 
@@ -13,21 +12,24 @@ import javax.persistence.*;
 public class EmailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_person")
     private PersonEntity person;
 
     //The email address
+    @Column(name = "email_address", unique = true)
     private String identifiedBy;
+
+    @Column(name = "use")
     private String use;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -20,8 +20,6 @@ public class PersonUpdateDtoIn implements Serializable {
     @JsonUnwrapped
     PersonInitialInformationDto personInitialInformationDto;
 
-
-
     @ApiModelProperty(value = "The middle name of the Person", position = 5, example = "Maxwell")
     private String middleName;
 
@@ -39,6 +37,7 @@ public class PersonUpdateDtoIn implements Serializable {
 
     @ApiModelProperty(value = "The list of the addresses of the Person", position = 25)
     private List<AddressDto> addresses;
+
 
     public PersonInitialInformationDto getPersonInitialInformationDto() {
         return personInitialInformationDto;
@@ -99,7 +98,7 @@ public class PersonUpdateDtoIn implements Serializable {
     @Override
     public String toString() {
         return "PersonUpdateDtoIn{" +
-                "personInitialInformationDto=" + personInitialInformationDto +
+                ", personInitialInformationDto=" + personInitialInformationDto +
                 ", middleName='" + middleName + '\'' +
                 ", maritalName='" + maritalName + '\'' +
                 ", emails=" + emails +

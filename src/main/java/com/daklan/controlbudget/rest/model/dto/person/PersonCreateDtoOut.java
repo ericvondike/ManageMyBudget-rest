@@ -1,10 +1,6 @@
 package com.daklan.controlbudget.rest.model.dto.person;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -14,40 +10,21 @@ public class PersonCreateDtoOut implements Serializable {
 
     private static final long serialVersionUID = 2014503680795210941L;
 
-    private String firtsName;
-    private String lastName;
-    private LocalDate birthDate;
+    //The id of the created person
+    private String id;
 
-    public String getFirtsName() {
-        return firtsName;
+    public String getId() {
+        return id;
     }
 
-    public void setFirtsName(String firtsName) {
-        this.firtsName = firtsName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "PersonCreateDtoOut{" +
-                "firtsName='" + firtsName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
+                "id='" + id + '\'' +
                 '}';
     }
 
@@ -56,14 +33,12 @@ public class PersonCreateDtoOut implements Serializable {
         if (this == o) return true;
         if (!(o instanceof PersonCreateDtoOut)) return false;
         PersonCreateDtoOut that = (PersonCreateDtoOut) o;
-        return Objects.equals(getFirtsName(), that.getFirtsName()) &&
-                Objects.equals(getLastName(), that.getLastName()) &&
-                Objects.equals(getBirthDate(), that.getBirthDate());
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getFirtsName(), getLastName(), getBirthDate());
+        return Objects.hash(getId());
     }
 }
