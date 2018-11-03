@@ -6,11 +6,13 @@ import com.daklan.controlbudget.rest.model.dto.contactinformation.FaxDto;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.TelephoneDto;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.person.PersonDeleteDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
 import com.daklan.controlbudget.rest.model.entity.address.AddressEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.EmailEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.FaxEntity;
+import com.daklan.controlbudget.rest.model.entity.contactinformation.PerosnNotFoudException;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
 import com.daklan.controlbudget.rest.model.enums.PersonStatus;
@@ -55,8 +57,8 @@ public class PersonServiceImpl implements PersonService {
      * @return personCreateDtoOut which is filled in via the search into teh database for the data already saved in it.
      */
     @Override
-    public PersonCreateDtoOut create(PersonCreateDtoIn personCreateDtoIn) {
-        PersonEntity personEntity = new PersonEntity();
+    public PersonCreateDtoOut create(final PersonCreateDtoIn personCreateDtoIn) {
+        final PersonEntity personEntity = new PersonEntity();
         personEntity.setFirstName(personCreateDtoIn.getPersonInitialInformationDto().getFirstName());
         personEntity.setLastName(personCreateDtoIn.getPersonInitialInformationDto().getLastName());
         personEntity.setBirthDate(personCreateDtoIn.getPersonInitialInformationDto().getBirthDate());
@@ -66,7 +68,7 @@ public class PersonServiceImpl implements PersonService {
                 personCreateDtoIn.getPersonInitialInformationDto().getLastName(),
                 personCreateDtoIn.getPersonInitialInformationDto().getBirthDate());
 
-        PersonCreateDtoOut personCreateDtoOut = new PersonCreateDtoOut();
+        final PersonCreateDtoOut personCreateDtoOut = new PersonCreateDtoOut();
         personCreateDtoOut.setId(personEntityFound.getId().toString());
 
         return personCreateDtoOut;
@@ -78,7 +80,7 @@ public class PersonServiceImpl implements PersonService {
      * @return
      */
     @Override
-    public PersonCreateDtoOut update(PersonUpdateDtoIn personUpdateDtoIn, Long id) {
+    public PersonCreateDtoOut update(final PersonUpdateDtoIn personUpdateDtoIn, final Long id) {
         Optional<PersonEntity> personOptional = personRepository.findById(id);
         if (personOptional.isPresent()) {
             //Adding the information on the person
@@ -95,7 +97,7 @@ public class PersonServiceImpl implements PersonService {
             Set<EmailEntity> emails = new HashSet<>();
 
             for (EmailDto emailDto : personUpdateDtoIn.getEmails()) {
-                EmailEntity emailEntity = new EmailEntity();
+                final EmailEntity emailEntity = new EmailEntity();
                 emailEntity.setIdentifiedBy(emailDto.getEmail());
                 emailEntity.setUse(emailDto.getUse().toString());
                 emailEntity.setPerson(personEntity);
@@ -108,7 +110,7 @@ public class PersonServiceImpl implements PersonService {
             Set<TelephoneEntity> telephones = new HashSet<>();
 
             for (TelephoneDto telephoneDto : personUpdateDtoIn.getTelephones()) {
-                TelephoneEntity telephoneEntity = new TelephoneEntity();
+                final TelephoneEntity telephoneEntity = new TelephoneEntity();
                 telephoneEntity.setIdentifiedBy(telephoneDto.getTelephone());
                 telephoneEntity.setType(telephoneDto.getTelephoneType().toString());
                 telephoneEntity.setUse(ContactUse.PERSONAL.toString());
@@ -122,7 +124,7 @@ public class PersonServiceImpl implements PersonService {
             Set<AddressEntity> addresses = new HashSet<>();
 
             for (AddressDto addressDto : personUpdateDtoIn.getAddresses()) {
-                AddressEntity addressEntity = new AddressEntity();
+                final AddressEntity addressEntity = new AddressEntity();
                 addressEntity.setStreetNumber(addressDto.getStreetNumber());
                 addressEntity.setStreetType(addressDto.getStreetType());
                 addressEntity.setStreetName(addressDto.getStreetName());
@@ -141,7 +143,7 @@ public class PersonServiceImpl implements PersonService {
             Set<FaxEntity> faxes = new HashSet<>();
 
             for (FaxDto faxDto : personUpdateDtoIn.getFaxes()) {
-                FaxEntity faxEntity = new FaxEntity();
+                final FaxEntity faxEntity = new FaxEntity();
                 faxEntity.setIdentifiedBy(faxDto.getFax());
                 faxEntity.setUse(faxDto.getUse().toString());
                 faxEntity.setPerson(personEntity);
@@ -158,9 +160,22 @@ public class PersonServiceImpl implements PersonService {
                 personUpdateDtoIn.getPersonInitialInformationDto().getLastName(),
                 personUpdateDtoIn.getPersonInitialInformationDto().getBirthDate());
 
-        PersonCreateDtoOut personCreateDtoOut = new PersonCreateDtoOut();
+        final PersonCreateDtoOut personCreateDtoOut = new PersonCreateDtoOut();
         personCreateDtoOut.setId(personEntityFound.getId().toString());
 
         return personCreateDtoOut;
+    }
+
+    @Override
+    public PersonDeleteDtoOut delete(Long id) throws PerosnNotFoudException {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(id);
+        if (!personEntityOptional.isPresent()) {
+            throw new PerosnNotFoudException("The person with the id " + id + " does not exsit");
+        }
+        personRepository.delete(personEntityOptional.get());
+        PersonDeleteDtoOut personDeleteDtoOut = new PersonDeleteDtoOut();
+        personDeleteDtoOut.setId(id);
+
+        return personDeleteDtoOut;
     }
 }
