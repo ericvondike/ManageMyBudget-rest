@@ -1,6 +1,7 @@
 package com.daklan.controlbudget.rest.model.dto.contactinformation;
 
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
+import com.daklan.controlbudget.rest.model.enums.TelephoneType;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -18,6 +19,9 @@ public class TelephoneDto implements Serializable {
     @ApiModelProperty(value = "The usage type of the telephone", position = 16, example = "PERSONAL")
     private ContactUse use;
 
+    @ApiModelProperty(value = "The type of the telephon: Fix or Mobile", position = 17, example = "FIX")
+    private TelephoneType telephoneType;
+
     public String getTelephone() {
         return telephone;
     }
@@ -34,15 +38,22 @@ public class TelephoneDto implements Serializable {
         this.use = use;
     }
 
+    public TelephoneType getTelephoneType() {
+        return telephoneType;
+    }
+
+    public void setTelephoneType(TelephoneType telephoneType) {
+        this.telephoneType = telephoneType;
+    }
+
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "TelephoneDto{" +
                 "telephone='" + telephone + '\'' +
                 ", use=" + use +
+                ", telephoneType=" + telephoneType +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,12 +61,13 @@ public class TelephoneDto implements Serializable {
         if (!(o instanceof TelephoneDto)) return false;
         TelephoneDto that = (TelephoneDto) o;
         return Objects.equals(getTelephone(), that.getTelephone()) &&
-                getUse() == that.getUse();
+                getUse() == that.getUse() &&
+                getTelephoneType() == that.getTelephoneType();
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getTelephone(), getUse());
+        return Objects.hash(getTelephone(), getUse(), getTelephoneType());
     }
 }

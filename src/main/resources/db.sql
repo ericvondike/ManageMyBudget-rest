@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `person` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `first_name` varchar(30) NOT NULL,
 `last_name` varchar(30) NOT NULL,
-`birth_date` date,
+`birth_date` date NOT NULL,
 `status` varchar(20) NOT NULL DEFAULT 'BEGINNER',
 `middle_name` varchar(30),
 `marital_name` varchar(30),
@@ -24,11 +24,11 @@ UNIQUE KEY (`first_name`, `last_name`, `birth_date`)
 CREATE TABLE IF NOT EXISTS `email` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `email_address` varchar(255) DEFAULT NULL,
-`use` varchar(20) DEFAULT 'PERSONAL',
-`id_person` int(11) unsigned DEFAULT NULL,
+`usage_type` varchar(20) DEFAULT 'PERSONAL',
+`id_person` int(11) unsigned,
 PRIMARY KEY(`id`),
 KEY `fk_email_personid_idx` (`id_person`),
-CONSTRAINT `fk_email_personid` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT `fk_email_personid` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -38,7 +38,7 @@ CONSTRAINT `fk_email_personid` FOREIGN KEY (`id_person`) REFERENCES `person` (`i
 CREATE TABLE IF NOT EXISTS `telephone` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `telephone_number` varchar(255) DEFAULT NULL,
-`use` varchar(20) DEFAULT 'PERSONAL',
+`usage_type` varchar(20) DEFAULT 'PERSONAL',
 `id_person` int(11) unsigned DEFAULT NULL,
 PRIMARY KEY(`id`),
 KEY `fk_telephone_personid_idx` (`id_person`),
@@ -52,7 +52,7 @@ CONSTRAINT `fk_telephone_personid` FOREIGN KEY (`id_person`) REFERENCES `person`
 CREATE TABLE IF NOT EXISTS `fax` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `fax_number` varchar(255) DEFAULT NULL,
-`use` varchar(20) DEFAULT 'PERSONAL',
+`usage_type` varchar(20) DEFAULT 'PERSONAL',
 `id_person` int(11) unsigned DEFAULT NULL,
 PRIMARY KEY(`id`),
 KEY `fk_fax_personid_idx` (`id_person`),
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `address` (
 `city_name` varchar(50) DEFAULT NULL,
 `country_name` varchar(50) DEFAULT NULL,
 `address_completion` varchar(255) DEFAULT NULL,
-`use` varchar(20) DEFAULT 'HOME',
+`usage_type` varchar(20) DEFAULT 'HOME',
 `id_person` int(11) unsigned DEFAULT NULL,
 PRIMARY KEY(`id`),
 KEY `fk_address_personid_idx` (`id_person`),

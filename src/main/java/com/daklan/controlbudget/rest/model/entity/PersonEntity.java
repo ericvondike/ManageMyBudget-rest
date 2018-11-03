@@ -1,6 +1,9 @@
 package com.daklan.controlbudget.rest.model.entity;
 
+import com.daklan.controlbudget.rest.model.entity.address.AddressEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.EmailEntity;
+import com.daklan.controlbudget.rest.model.entity.contactinformation.FaxEntity;
+import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,7 +18,7 @@ public class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -35,23 +38,23 @@ public class PersonEntity {
     @Column(name = "marital_name")
     private String maritalName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<EmailEntity> emails;
 
-//    @OneToMany(mappedBy = "person")
-//    private Set<TelephoneEntity> telephones;
-//
-//    @OneToMany(mappedBy = "person")
-//    private Set<FaxEntity> faxes;
-//
-//    @OneToMany(mappedBy = "person")
-//    private Set<AddressEntity> addresses;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private Set<TelephoneEntity> telephones;
 
-    public Integer getId() {
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private Set<FaxEntity> faxes;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private Set<AddressEntity> addresses;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -111,27 +114,27 @@ public class PersonEntity {
         this.emails = emails;
     }
 
-//    public Set<TelephoneEntity> getTelephones() {
-//        return telephones;
-//    }
-//
-//    public void setTelephones(Set<TelephoneEntity> telephones) {
-//        this.telephones = telephones;
-//    }
-//
-//    public Set<FaxEntity> getFaxes() {
-//        return faxes;
-//    }
-//
-//    public void setFaxes(Set<FaxEntity> faxes) {
-//        this.faxes = faxes;
-//    }
-//
-//    public Set<AddressEntity> getAddresses() {
-//        return addresses;
-//    }
-//
-//    public void setAddresses(Set<AddressEntity> addresses) {
-//        this.addresses = addresses;
-//    }
+    public Set<TelephoneEntity> getTelephones() {
+        return telephones;
+    }
+
+    public void setTelephones(Set<TelephoneEntity> telephones) {
+        this.telephones = telephones;
+    }
+
+    public Set<FaxEntity> getFaxes() {
+        return faxes;
+    }
+
+    public void setFaxes(Set<FaxEntity> faxes) {
+        this.faxes = faxes;
+    }
+
+    public Set<AddressEntity> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<AddressEntity> addresses) {
+        this.addresses = addresses;
+    }
 }

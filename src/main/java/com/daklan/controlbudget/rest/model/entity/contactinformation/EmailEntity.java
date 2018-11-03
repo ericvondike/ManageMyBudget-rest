@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Table(name = "email")
 public class EmailEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_person")
     private PersonEntity person;
 
@@ -22,14 +22,14 @@ public class EmailEntity {
     @Column(name = "email_address", unique = true)
     private String identifiedBy;
 
-    @Column(name = "use")
+    @Column(name = "usage_type")
     private String use;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

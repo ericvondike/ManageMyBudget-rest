@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Table(name = "telephone")
 public class TelephoneEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_person", nullable = false)
@@ -22,17 +22,17 @@ public class TelephoneEntity {
     @Column(name = "telephone_number")
     private String identifiedBy;
 
-    @Column(name = "use")
+    @Column(name = "usage_type")
     private String use;
 
     @Column(name = "type")
     private String type;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -21,6 +21,6 @@ public interface PersonService {
      * @param personUpdateDtoIn DTOin containing the information on the person to be updated. This is the complete information on the person.
      * @return returns the same data saved in the sql table.
      */
-    PersonCreateDtoOut update(PersonUpdateDtoIn personUpdateDtoIn, Integer id);
+    PersonCreateDtoOut update(PersonUpdateDtoIn personUpdateDtoIn, Long id);
 
 }

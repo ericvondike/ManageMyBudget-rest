@@ -40,7 +40,7 @@ public class PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonCreateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn,
                                                            @PathVariable String id) {
-        PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Integer.parseInt(id));
+        PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Long.parseLong(id));
 
         return ResponseEntity.ok(personCreateDtoOut);
     }
