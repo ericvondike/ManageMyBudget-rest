@@ -12,26 +12,25 @@ public interface ContactInformationService {
     /**
      * <b>The method for adding a telephone number for an existing Person.</b>
      * @param telephoneDto the information on the telephone of the person
-     * @param id the id of the Person
+     * @param idPerson the id of the Person
      * @return TelephoneDto the DTOout for creating a telephone for a Person.
      */
-    TelephoneDto addTelephone(TelephoneDto telephoneDto, Long id) throws RecordNotFoundException;
+    RecordCreateDtoOut addTelephone(TelephoneDto telephoneDto, Long idPerson) throws RecordNotFoundException;
 
     /**
      * <b>The method for updating a telephone number for an existing Person.</b>
      * @param telephoneDto the information on the telephone of the person
-     * @param id the id of the Person
+     * @param idTelephone the id of the Telephone to be updated.
      * @return TelephoneDto the DTOout for updating a telephone for a Person.
      */
-    TelephoneDto updateTelephone(TelephoneDto telephoneDto, Long id);
+    RecordUpdateDtoOut updateTelephone(TelephoneDto telephoneDto, Long idTelephone) throws RecordNotFoundException;
 
     /**
      * <b>The method for deleting a telephone number for an existing Person.</b>
-     * @param telephoneNumber the information on the telephone of the person
-     * @param id the id of the Person
+     * @param idTelephone the id of the Telephone to de deleted.
      * @return TelephoneDeleteDtoOut the DTOout for deleting the telephone information of a Person.
      */
-    TelephoneDeleteDtoOut deleteTelephone(String telephoneNumber, Long id) throws RecordNotFoundException, TooManyRecordsFoundException;
+    RecordDeleteDtoOut deleteTelephone(Long idTelephone) throws RecordNotFoundException, TooManyRecordsFoundException;
 
     /**
      * <b>The method for adding an email address for an existing Person.</b>
@@ -39,7 +38,7 @@ public interface ContactInformationService {
      * @param id the id of the Person
      * @return EmailDto the DTOout for creating an email for a Person.
      */
-    EmailDto addEmail(EmailDto emailDto, Long id);
+    RecordCreateDtoOut addEmail(EmailDto emailDto, Long id);
 
     /**
      * <b>The method for updating the email address of an existing Person.</b>
@@ -47,15 +46,14 @@ public interface ContactInformationService {
      * @param id the id of the Person
      * @return EmailDto the DTOout for updating an email for a Person.
      */
-    EmailDto updateEmail(EmailDto emailDto, Long id);
+    RecordUpdateDtoOut updateEmail(EmailDto emailDto, Long id);
 
     /**
      * <b>The method for deleting the email address of an existing Person.</b>
-     * @param emailAddress the email address of the person
-     * @param id the id of the Person
+     * @param id the id of the Email to be deleted.
      * @return EmailDeleteDtoOut the DTOout for deleting the email information of a Person.
      */
-    EmailDeleteDtoOut deleteEmail(String emailAddress, Long id);
+    RecordDeleteDtoOut deleteEmail(Long id);
 
     /**
      *  <b>The method for adding a fax number for an existing Person.</b>
@@ -63,7 +61,7 @@ public interface ContactInformationService {
      * @param id the id of the Person
      * @return FaxDto the DTOout for creating a fax for a Person.
      */
-    FaxDto addFax(FaxDto faxDto, Long id);
+    RecordCreateDtoOut addFax(FaxDto faxDto, Long id);
 
     /**
      * <b>The method for updating the fax information for an existing Person.</b>
@@ -71,13 +69,12 @@ public interface ContactInformationService {
      * @param id the id of the Person
      * @return FaxDto the DTOout for updating a fax for a Person.
      */
-    FaxDto updateFax(FaxDto faxDto, Long id);
+    RecordUpdateDtoOut updateFax(FaxDto faxDto, Long id);
 
     /**
      * <b>The method for deleting the fax information of an existing Person.</b>
-     * @param faxNumber the fax number of the person.
      * @param id the id of the Person
      * @return FaxDeleteDtoOut the DTOout for deleting the fax information of a Person.
      */
-    FaxDeleteDtoOut deleteFax(String faxNumber, Long id);
+    RecordDeleteDtoOut deleteFax(Long id);
 }

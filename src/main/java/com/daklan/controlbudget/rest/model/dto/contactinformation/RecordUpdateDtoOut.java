@@ -1,17 +1,19 @@
-package com.daklan.controlbudget.rest.model.dto.person;
+package com.daklan.controlbudget.rest.model.dto.contactinformation;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * <b>DTOout for creating a Person for the first time.</b>
+ * <b>The DTO class for Updating a record: Person, Telephone, Fax, etc,.</b>
  */
-public class PersonCreateDtoOut implements Serializable {
+public class RecordUpdateDtoOut implements Serializable {
+    private static final Long serialVersionUID = 3985201463578934503L;
 
-    private static final long serialVersionUID = 2014503680795210941L;
-
-    //The id of the created person
     private String id;
+
+    public RecordUpdateDtoOut(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
@@ -21,9 +23,10 @@ public class PersonCreateDtoOut implements Serializable {
         this.id = id;
     }
 
+
     @Override
     public String toString() {
-        return "PersonCreateDtoOut{" +
+        return "RecordUpdateDtoOut{" +
                 "id='" + id + '\'' +
                 '}';
     }
@@ -31,8 +34,8 @@ public class PersonCreateDtoOut implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PersonCreateDtoOut)) return false;
-        PersonCreateDtoOut that = (PersonCreateDtoOut) o;
+        if (!(o instanceof RecordUpdateDtoOut)) return false;
+        RecordUpdateDtoOut that = (RecordUpdateDtoOut) o;
         return Objects.equals(getId(), that.getId());
     }
 

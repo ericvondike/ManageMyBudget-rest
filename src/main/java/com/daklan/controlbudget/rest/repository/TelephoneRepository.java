@@ -1,5 +1,6 @@
 package com.daklan.controlbudget.rest.repository;
 
+import com.daklan.controlbudget.rest.model.entity.PersonEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,4 +15,6 @@ public interface TelephoneRepository extends CrudRepository<TelephoneEntity, Lon
     @Query("SELECT id FROM TelephoneEntity t WHERE t.person.id = :id_person AND t.identifiedBy = :telephone_number")
     List<Long> findTelephoneNumberForPerson(@Param("id_person") Long idPerson,
                                             @Param("telephone_number") String telephoneNumber);
+
+    TelephoneEntity findTelephoneEntityByIdentifiedByAndPerson(String telephoneNumber, PersonEntity personEntity);
 }

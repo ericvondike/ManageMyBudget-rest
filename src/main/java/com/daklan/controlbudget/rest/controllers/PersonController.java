@@ -1,10 +1,10 @@
 package com.daklan.controlbudget.rest.controllers;
 
+import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordDeleteDtoOut;
+import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordUpdateDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
-import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoOut;
-import com.daklan.controlbudget.rest.model.dto.person.PersonDeleteDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
-import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 import com.daklan.controlbudget.rest.service.PersonService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Api(tags = {"Person"}, description = "APIs for managing Person")
 @RestController
@@ -37,8 +37,8 @@ public class PersonController {
      */
     @RequestMapping(value = "/create", method = POST)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonCreateDtoOut> createPerson(@RequestBody PersonCreateDtoIn personCreateDtoIn) {
-        PersonCreateDtoOut personCreateDtoOut = service.create(personCreateDtoIn);
+    public ResponseEntity<RecordCreateDtoOut> createPerson(@RequestBody PersonCreateDtoIn personCreateDtoIn) {
+        RecordCreateDtoOut personCreateDtoOut = service.create(personCreateDtoIn);
 
         return ResponseEntity.ok(personCreateDtoOut);
     }
@@ -49,11 +49,11 @@ public class PersonController {
      * @param id The id of the Person to be updated.
      * @return DTOout containing the id of the updated person.
      */
-    @RequestMapping(value = "/update/{id}", method = POST)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonCreateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn,
-                                                           @PathVariable String id) throws RecordNotFoundException {
-        PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Long.parseLong(id));
+    @RequestMapping(value = "/update/{id}", method = PUT)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RecordUpdateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn,
+                                                           @PathVariable String id) {
+        RecordUpdateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Long.parseLong(id));
 
         return ResponseEntity.ok(personCreateDtoOut);
     }
@@ -63,10 +63,10 @@ public class PersonController {
      * @param id The id of the existing Person.
      * @return DTOout containing the id of the deleted Person.
      */
-    @RequestMapping(value = "/delete/{id}", method = POST)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonDeleteDtoOut> deletePerson(@PathVariable String id) throws RecordNotFoundException {
-        PersonDeleteDtoOut personDeleteDtoOut = service.delete(Long.parseLong(id));
+    @RequestMapping(value = "/delete/{id}", method = DELETE)
+    @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RecordDeleteDtoOut> deletePerson(@PathVariable String id) {
+        RecordDeleteDtoOut personDeleteDtoOut = service.delete(Long.parseLong(id));
 
         return ResponseEntity.ok(personDeleteDtoOut);
     }

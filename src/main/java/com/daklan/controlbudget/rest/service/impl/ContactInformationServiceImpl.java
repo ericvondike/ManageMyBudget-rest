@@ -1,55 +1,45 @@
 package com.daklan.controlbudget.rest.service.impl;
 
-import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
-import com.daklan.controlbudget.rest.configuration.TooManyRecordsFoundException;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.*;
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
+import com.daklan.controlbudget.rest.model.entity.contactinformation.EmailEntity;
+import com.daklan.controlbudget.rest.model.entity.contactinformation.FaxEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
 import com.daklan.controlbudget.rest.repository.EmailRepository;
 import com.daklan.controlbudget.rest.repository.FaxRepository;
 import com.daklan.controlbudget.rest.repository.PersonRepository;
 import com.daklan.controlbudget.rest.repository.TelephoneRepository;
+import com.daklan.controlbudget.rest.service.AbstractManageService;
 import com.daklan.controlbudget.rest.service.ContactInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
-import java.util.List;
 import java.util.Optional;
 
 /**
  * <b>The service for adding, updating and deleting the different contact information of the person.</b>
  */
 @Service
-public class ContactInformationServiceImpl implements ContactInformationService {
+public class ContactInformationServiceImpl extends AbstractManageService implements ContactInformationService {
 
     private TelephoneRepository telephoneRepository;
     private EmailRepository emailRepository;
     private FaxRepository faxRepository;
     private PersonRepository personRepository;
-    private String messageDeleteTelephone;
-    private String errorMessagePersonNotFound;
-    private String errorMessageTelephoneNotFound;
-    private String errorMessageManyTelephonesFound;
+    private ExceptionManageMyBudgetService exceptionManageMyBudgetService;
+
 
     @Autowired
     public ContactInformationServiceImpl(final TelephoneRepository telephoneRepository,
                                          final EmailRepository emailRepository,
                                          final FaxRepository faxRepository,
                                          final PersonRepository personRepository,
-                                         @Value("${message.delete.telephone}") String messageDeleteTelephone,
-                                         @Value("${message.person.not.found}") String errorMessagePersonNotFound,
-                                         @Value("${message.telephone.not.found}") String errorMessageTelephoneNotFound,
-                                         @Value("${message.telephone.many}") String errorMessageManyTelephonesFound) {
+                                         final ExceptionManageMyBudgetService exceptionManageMyBudgetService) {
         this.telephoneRepository = telephoneRepository;
         this.emailRepository = emailRepository;
         this.faxRepository = faxRepository;
         this.personRepository = personRepository;
-        this.messageDeleteTelephone = messageDeleteTelephone;
-        this.errorMessagePersonNotFound = errorMessagePersonNotFound;
-        this.errorMessageTelephoneNotFound = errorMessageTelephoneNotFound;
-        this.errorMessageManyTelephonesFound = errorMessageManyTelephonesFound;
+        this.exceptionManageMyBudgetService = exceptionManageMyBudgetService;
     }
 
 
@@ -57,14 +47,13 @@ public class ContactInformationServiceImpl implements ContactInformationService 
      * @see ContactInformationService#addTelephone(TelephoneDto, Long)
      */
     @Override
-    public TelephoneDto addTelephone(TelephoneDto telephoneDto, Long idPerson) throws RecordNotFoundException {
-        final Optional<PersonEntity> personOption = personRepository.findById(idPerson);
+    public RecordCreateDtoOut addTelephone(final TelephoneDto telephoneDto, Long idPerson) {
+        Optional<PersonEntity> personOption = personRepository.findById(idPerson);
         if (!personOption.isPresent()) {
-            final String errorMessage = MessageFormat.format(errorMessagePersonNotFound, idPerson);
-            throw new RecordNotFoundException(errorMessage);
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(idPerson);
         }
 
-        PersonEntity personFound = personOption.get();
+        final PersonEntity personFound = personOption.get();
         final TelephoneEntity telephoneEntity = new TelephoneEntity();
         telephoneEntity.setIdentifiedBy(telephoneDto.getTelephone());
         telephoneEntity.setUse(telephoneDto.getUse().toString());
@@ -73,79 +62,162 @@ public class ContactInformationServiceImpl implements ContactInformationService 
 
         telephoneRepository.save(telephoneEntity);
 
-        return telephoneDto;
+        final TelephoneEntity telephoneEntitySavedFound = telephoneRepository.findTelephoneEntityByIdentifiedByAndPerson(telephoneEntity.getIdentifiedBy(), personOption.get());
+
+        final RecordCreateDtoOut telephoneAddDtoOut = buildRecordCreateDtoOut(telephoneEntitySavedFound.getId().toString());
+
+        return telephoneAddDtoOut;
     }
 
     /**
      * @see ContactInformationService#updateTelephone(TelephoneDto, Long)
      */
     @Override
-    public TelephoneDto updateTelephone(TelephoneDto telephoneDto, Long id) {
+    public RecordUpdateDtoOut updateTelephone(final TelephoneDto telephoneDto, Long idTelephone) {
 
-        return null;
+        Optional<TelephoneEntity> telephoneEntityOptional = telephoneRepository.findById(idTelephone);
+        if (!telephoneEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(idTelephone);
+        }
+
+        final TelephoneEntity telephoneEntity = telephoneEntityOptional.get();
+        telephoneEntity.setIdentifiedBy(telephoneDto.getTelephone());
+        telephoneEntity.setType(telephoneDto.getTelephoneType().toString());
+        telephoneEntity.setUse(telephoneDto.getUse().toString());
+
+        telephoneRepository.save(telephoneEntity);
+
+        final RecordUpdateDtoOut telephoneUpdateDtoOut = buildRecordUpdateDtoOut(idTelephone.toString());
+
+        return telephoneUpdateDtoOut;
     }
 
     /**
-     * @see ContactInformationService#deleteTelephone(String, Long)
+     * @see ContactInformationService#deleteTelephone(Long)
      */
     @Override
-    public TelephoneDeleteDtoOut deleteTelephone(String telephoneNumber, Long idPerson) throws RecordNotFoundException, TooManyRecordsFoundException {
-        final Optional<PersonEntity> personOption = personRepository.findById(idPerson);
-        if (!personOption.isPresent()) {
-            final String errorMessage = MessageFormat.format(errorMessagePersonNotFound, idPerson);
-            throw new RecordNotFoundException(errorMessage);
+    public RecordDeleteDtoOut deleteTelephone(Long idTelephone) {
+
+        Optional<TelephoneEntity> telephoneEntityOptional = telephoneRepository.findById(idTelephone);
+        if (!telephoneEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(idTelephone);
         }
-
-        final List<Long> telephoneIdList = telephoneRepository.findTelephoneNumberForPerson(idPerson, telephoneNumber);
-
-
-        if (telephoneIdList.isEmpty()) {
-            final String errorMesage = MessageFormat.format(errorMessageTelephoneNotFound, telephoneNumber, idPerson);
-            throw new RecordNotFoundException(errorMesage);
-        }
-
-        if (telephoneIdList.size() > 1) {
-            final String errorMesage = MessageFormat.format(errorMessageManyTelephonesFound, telephoneNumber, telephoneIdList.size(), idPerson);
-            throw new TooManyRecordsFoundException(errorMesage);
-        }
-
-        final Long idTelephone = telephoneIdList.get(0);
         telephoneRepository.deleteById(idTelephone);
 
-        final String processedMessage = MessageFormat.format(messageDeleteTelephone, idPerson);
-        final TelephoneDeleteDtoOut telephoneDeleteDtoOut = new TelephoneDeleteDtoOut();
-        telephoneDeleteDtoOut.setMessage(processedMessage);
+        final RecordDeleteDtoOut recordDeleteDtoOut = buildRecordDeletDtoOut(idTelephone.toString());
 
-        return telephoneDeleteDtoOut;
+        return recordDeleteDtoOut;
+    }
+
+    /**
+     * @see ContactInformationService#addEmail(EmailDto, Long)
+     */
+    @Override
+    public RecordCreateDtoOut addEmail(final EmailDto emailDto, Long idPerson) {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(idPerson);
+        if(!personEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(idPerson);
+        }
+
+        final EmailEntity emailEntity = new EmailEntity();
+        emailEntity.setIdentifiedBy(emailDto.getEmail());
+        emailEntity.setUse(emailDto.getUse().toString());
+        emailEntity.setPerson(personEntityOptional.get());
+        emailRepository.save(emailEntity);
+
+        final EmailEntity emailEntitySavedFound = emailRepository.findByIdentifiedByAndPerson(emailDto.getEmail(), personEntityOptional.get());
+        final RecordCreateDtoOut emailCreateDtoOut = buildRecordCreateDtoOut(emailEntitySavedFound.getId().toString());
+
+        return emailCreateDtoOut;
+    }
+
+    /**
+     * @see ContactInformationService#updateEmail(EmailDto, Long)
+     */
+    @Override
+    public RecordUpdateDtoOut updateEmail(final EmailDto emailDto, Long id) {
+        Optional<EmailEntity> emailEntityOptional = emailRepository.findById(id);
+        if (!emailEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(id);
+        }
+
+        final EmailEntity emailEntityUpdated = emailEntityOptional.get();
+        emailEntityUpdated.setIdentifiedBy(emailDto.getEmail());
+        emailEntityUpdated.setUse(emailDto.getUse().toString());
+
+        emailRepository.save(emailEntityUpdated);
+
+        final RecordUpdateDtoOut emailUpdateDtoOut = buildRecordUpdateDtoOut(id.toString());
+        return  emailUpdateDtoOut;
+    }
+
+    /**
+     * @see ContactInformationService#deleteEmail(Long)
+     */
+    @Override
+    public RecordDeleteDtoOut deleteEmail(Long id) {
+        Optional<EmailEntity> emailEntityOptional = emailRepository.findById(id);
+        if (!emailEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(id);
+        }
+
+        emailRepository.deleteById(id);
+
+        final RecordDeleteDtoOut emailDeleteDtoOut = buildRecordDeletDtoOut(id.toString());
+        return emailDeleteDtoOut;
+    }
+
+    /**
+     * @see ContactInformationService#addFax(FaxDto, Long)
+     */
+    @Override
+    public RecordCreateDtoOut addFax(final FaxDto faxDto, Long id) {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(id);
+        if (!personEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(id);
+        }
+
+        final FaxEntity faxEntity = new FaxEntity();
+        faxEntity.setIdentifiedBy(faxDto.getFax());
+        faxEntity.setUse(faxDto.getUse().getUsage());
+        faxEntity.setPerson(personEntityOptional.get());
+        faxRepository.save(faxEntity);
+
+        final FaxEntity faxEntitySavedFound = faxRepository.findByIdentifiedBy(faxDto.getFax());
+        final RecordCreateDtoOut faxCreateDtoOut = buildRecordCreateDtoOut(faxEntitySavedFound.getId().toString());
+
+        return faxCreateDtoOut;
+    }
+
+    /**
+     * @see ContactInformationService#updateFax(FaxDto, Long)
+     */
+    @Override
+    public RecordUpdateDtoOut updateFax(final FaxDto faxDto, Long id) {
+        Optional<FaxEntity> faxEntityOptional = faxRepository.findById(id);
+        if (!faxEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(id);
+        }
+
+        final FaxEntity faxEntity = faxEntityOptional.get();
+        faxEntity.setIdentifiedBy(faxDto.getFax());
+        faxEntity.setUse(faxDto.getUse().getUsage());
+
+        final RecordUpdateDtoOut faxUpdateDtoOut = buildRecordUpdateDtoOut(id.toString());
+
+        return faxUpdateDtoOut;
     }
 
     @Override
-    public EmailDto addEmail(EmailDto emailDto, Long id) {
-        return null;
-    }
+    public RecordDeleteDtoOut deleteFax(Long id) {
+        Optional<FaxEntity> faxEntityOptional = faxRepository.findById(id);
+        if (!faxEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwContactInformationNotFoundException(id);
+        }
 
-    @Override
-    public EmailDto updateEmail(EmailDto emailDto, Long id) {
-        return null;
-    }
+        faxRepository.deleteById(id);
 
-    @Override
-    public EmailDeleteDtoOut deleteEmail(String emailAddress, Long id) {
-        return null;
-    }
-
-    @Override
-    public FaxDto addFax(FaxDto faxDto, Long id) {
-        return null;
-    }
-
-    @Override
-    public FaxDto updateFax(FaxDto faxDto, Long id) {
-        return null;
-    }
-
-    @Override
-    public FaxDeleteDtoOut deleteFax(String faxNumber, Long id) {
-        return null;
+        final RecordDeleteDtoOut faxDeleteDtoOut = buildRecordDeletDtoOut(id.toString());
+        return faxDeleteDtoOut;
     }
 }

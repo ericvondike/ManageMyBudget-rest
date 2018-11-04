@@ -13,13 +13,13 @@ import java.util.Objects;
 public class TelephoneDto implements Serializable {
     private static final Long serialVersionUID = 5701297634587120569L;
 
-    @ApiModelProperty(value = "The telephonenumber of the Person", position = 15, example = "0000000000")
+    @ApiModelProperty(value = "The telephone number of the Person", position = 15, example = "0000000000")
     private String telephone;
 
     @ApiModelProperty(value = "The usage type of the telephone", position = 16, example = "PERSONAL")
     private ContactUse use;
 
-    @ApiModelProperty(value = "The type of the telephon: Fix or Mobile", position = 17, example = "FIX")
+    @ApiModelProperty(value = "The type of the telephone: Fix or Mobile", position = 17, example = "FIX")
     private TelephoneType telephoneType;
 
     public String getTelephone() {

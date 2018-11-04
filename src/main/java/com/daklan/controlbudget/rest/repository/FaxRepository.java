@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * <b>The repository class for CRUD operations on Fax.</b>
  */
 public interface FaxRepository extends CrudRepository<FaxEntity, Long> {
+    FaxEntity findByIdentifiedBy(String faxNumber);
 }
