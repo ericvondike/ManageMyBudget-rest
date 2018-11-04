@@ -4,10 +4,10 @@ import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonDeleteDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
-import com.daklan.controlbudget.rest.model.entity.contactinformation.PerosnNotFoudException;
+import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 
 /**
- *<b>The service for CRUD actions on Person: Create, Fine, Update, Delete</b>
+ *<b>The service for CRUD actions on Person: Create, Find, Update, Delete</b>
  */
 public interface PersonService {
 
@@ -23,13 +23,13 @@ public interface PersonService {
      * @param personUpdateDtoIn DTOin containing the information on the person to be updated. This is the complete information on the person.
      * @return returns the same data saved in the sql table.
      */
-    PersonCreateDtoOut update(PersonUpdateDtoIn personUpdateDtoIn, Long id);
+    PersonCreateDtoOut update(PersonUpdateDtoIn personUpdateDtoIn, Long id) throws RecordNotFoundException;
 
     /**
      * <b>The method for deleting an existent person.</b>
      * @param id The id of the Person to be deleted
      * @return the DTOout for the deleted Person which contains just the id of the delted Person.
      */
-    PersonDeleteDtoOut delete(Long id) throws PerosnNotFoudException;
+    PersonDeleteDtoOut delete(Long id) throws RecordNotFoundException;
 
 }

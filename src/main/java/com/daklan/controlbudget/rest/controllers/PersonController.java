@@ -4,7 +4,7 @@ import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonDeleteDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
-import com.daklan.controlbudget.rest.model.entity.contactinformation.PerosnNotFoudException;
+import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 import com.daklan.controlbudget.rest.service.PersonService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -52,7 +52,7 @@ public class PersonController {
     @RequestMapping(value = "/update/{id}", method = POST)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonCreateDtoOut> updatePerson(@RequestBody PersonUpdateDtoIn personUpdateDtoIn,
-                                                           @PathVariable String id) {
+                                                           @PathVariable String id) throws RecordNotFoundException {
         PersonCreateDtoOut personCreateDtoOut = service.update(personUpdateDtoIn, Long.parseLong(id));
 
         return ResponseEntity.ok(personCreateDtoOut);
@@ -65,7 +65,7 @@ public class PersonController {
      */
     @RequestMapping(value = "/delete/{id}", method = POST)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonDeleteDtoOut> deletePerson(@PathVariable String id) throws PerosnNotFoudException {
+    public ResponseEntity<PersonDeleteDtoOut> deletePerson(@PathVariable String id) throws RecordNotFoundException {
         PersonDeleteDtoOut personDeleteDtoOut = service.delete(Long.parseLong(id));
 
         return ResponseEntity.ok(personDeleteDtoOut);

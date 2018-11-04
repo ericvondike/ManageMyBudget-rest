@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `telephone` (
 `usage_type` varchar(20) DEFAULT 'PERSONAL',
 `id_person` int(11) unsigned DEFAULT NULL,
 PRIMARY KEY(`id`),
+UNION KEY(`telephone_number`, `id_person`)
 KEY `fk_telephone_personid_idx` (`id_person`),
 CONSTRAINT `fk_telephone_personid` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
