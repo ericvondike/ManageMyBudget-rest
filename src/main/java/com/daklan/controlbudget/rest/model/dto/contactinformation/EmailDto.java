@@ -2,9 +2,11 @@ package com.daklan.controlbudget.rest.model.dto.contactinformation;
 
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <b>The DTO class modeling the email of the Person.</b>
@@ -35,26 +37,32 @@ public class EmailDto implements Serializable {
     }
 
     @Override
-    public String
-    toString() {
-        return "EmailDto{" +
-                "email='" + email + '\'' +
-                ", use=" + use +
-                '}';
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("email", email)
+                .append("use", use)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (!(o instanceof EmailDto)) return false;
+
         EmailDto emailDto = (EmailDto) o;
-        return Objects.equals(getEmail(), emailDto.getEmail()) &&
-                getUse() == emailDto.getUse();
+
+        return new EqualsBuilder()
+                .append(getEmail(), emailDto.getEmail())
+                .append(getUse(), emailDto.getUse())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getEmail(), getUse());
+        return new HashCodeBuilder(17, 37)
+                .append(getEmail())
+                .append(getUse())
+                .toHashCode();
     }
 }

@@ -1,11 +1,12 @@
 package com.daklan.controlbudget.rest.model.dto.contactinformation;
 
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <b>The DTO class modeling the fax of the Person.</b>
@@ -37,24 +38,31 @@ public class FaxDto implements Serializable {
 
     @Override
     public String toString() {
-        return "FaxDto{" +
-                "fax='" + fax + '\'' +
-                ", use=" + use +
-                '}';
+        return new ToStringBuilder(this)
+                .append("fax", fax)
+                .append("use", use)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (!(o instanceof FaxDto)) return false;
+
         FaxDto faxDto = (FaxDto) o;
-        return Objects.equals(getFax(), faxDto.getFax()) &&
-                getUse() == faxDto.getUse();
+
+        return new EqualsBuilder()
+                .append(getFax(), faxDto.getFax())
+                .append(getUse(), faxDto.getUse())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getFax(), getUse());
+        return new HashCodeBuilder(17, 37)
+                .append(getFax())
+                .append(getUse())
+                .toHashCode();
     }
 }

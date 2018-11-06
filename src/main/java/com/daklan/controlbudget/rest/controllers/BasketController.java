@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @Api(tags = {"Basket"}, description = "APIs for testing the basket")
 @RestController
 @RequestMapping(value = "/manage/basket")
@@ -35,7 +37,7 @@ public class BasketController {
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ShoppingListOut> buildBasket(@RequestBody ShoppingListIn shoppingListIn) {
+    public ResponseEntity<ShoppingListOut> buildBasket(@RequestBody ShoppingListIn shoppingListIn) throws IOException {
         String testFilePath = jsonPathTestService.callPropertiesFile();
         ShoppingListOut shoppingListOut = service.BuildBasket(shoppingListIn);
         return ResponseEntity.ok(shoppingListOut);

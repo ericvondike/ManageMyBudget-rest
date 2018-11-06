@@ -7,9 +7,12 @@ import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
 import com.daklan.controlbudget.rest.service.PersonService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +67,12 @@ public class PersonController {
      * @return DTOout containing the id of the deleted Person.
      */
     @RequestMapping(value = "/delete/{id}", method = DELETE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 202, message = "The Person has been deleted."),
+            @ApiResponse(code = 404, message = "Person Not found.")
+    })
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<RecordDeleteDtoOut> deletePerson(@PathVariable String id) {
         RecordDeleteDtoOut personDeleteDtoOut = service.delete(Long.parseLong(id));
 

@@ -5,6 +5,8 @@ import com.daklan.controlbudget.rest.model.entity.PersonEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.EmailEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.FaxEntity;
 import com.daklan.controlbudget.rest.model.entity.contactinformation.TelephoneEntity;
+import com.daklan.controlbudget.rest.model.enums.ContactUse;
+import com.daklan.controlbudget.rest.model.enums.TelephoneType;
 import com.daklan.controlbudget.rest.repository.EmailRepository;
 import com.daklan.controlbudget.rest.repository.FaxRepository;
 import com.daklan.controlbudget.rest.repository.PersonRepository;
@@ -14,6 +16,8 @@ import com.daklan.controlbudget.rest.service.ContactInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -110,6 +114,31 @@ public class ContactInformationServiceImpl extends AbstractManageService impleme
     }
 
     /**
+     * @see ContactInformationService#findTelephone(Long)
+     */
+    @Override
+    public List<TelephoneDto> findTelephone(Long idPerson) {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(idPerson);
+        if(!personEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(idPerson);
+        }
+        final List<TelephoneEntity> telephoneEntityList = telephoneRepository.findTelephoneEntityByPerson(personEntityOptional.get());
+        final List<TelephoneDto> telephoneDtoList = new ArrayList<>();
+
+        for (TelephoneEntity telephoneEntity : telephoneEntityList) {
+            final TelephoneDto telephoneDto = new TelephoneDto();
+            telephoneDto.setTelephone(telephoneEntity.getIdentifiedBy());
+            telephoneDto.setTelephoneType(TelephoneType.valueOf(telephoneEntity.getType()));
+            telephoneDto.setUse(ContactUse.valueOf(telephoneEntity.getUse()));
+
+            telephoneDtoList.add(telephoneDto);
+        }
+
+        return telephoneDtoList;
+
+    }
+
+    /**
      * @see ContactInformationService#addEmail(EmailDto, Long)
      */
     @Override
@@ -168,6 +197,28 @@ public class ContactInformationServiceImpl extends AbstractManageService impleme
     }
 
     /**
+     * @see ContactInformationService#findEmail(Long)
+     */
+    @Override
+    public List<EmailDto> findEmail(Long idPerson) {
+        Optional<PersonEntity> optionalPersonEntity = personRepository.findById(idPerson);
+        if (!optionalPersonEntity.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(idPerson);
+        }
+
+        final List<EmailEntity> emailEntityList = emailRepository.findByPerson(optionalPersonEntity.get());
+        final List<EmailDto> emailDtoList = new ArrayList<>();
+        for (EmailEntity emailEntity : emailEntityList) {
+            final EmailDto emailDto = new EmailDto();
+            emailDto.setEmail(emailEntity.getIdentifiedBy());
+            emailDto.setUse(ContactUse.valueOf(emailEntity.getUse()));
+            emailDtoList.add(emailDto);
+        }
+
+        return emailDtoList;
+    }
+
+    /**
      * @see ContactInformationService#addFax(FaxDto, Long)
      */
     @Override
@@ -208,6 +259,9 @@ public class ContactInformationServiceImpl extends AbstractManageService impleme
         return faxUpdateDtoOut;
     }
 
+    /**
+     * @see ContactInformationService#deleteFax(Long)
+     */
     @Override
     public RecordDeleteDtoOut deleteFax(Long id) {
         Optional<FaxEntity> faxEntityOptional = faxRepository.findById(id);
@@ -219,5 +273,24 @@ public class ContactInformationServiceImpl extends AbstractManageService impleme
 
         final RecordDeleteDtoOut faxDeleteDtoOut = buildRecordDeletDtoOut(id.toString());
         return faxDeleteDtoOut;
+    }
+
+    @Override
+    public List<FaxDto> findFaxes(Long idPerson) {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(idPerson);
+        if (!personEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(idPerson);
+        }
+
+        final List<FaxEntity> faxEntityList = faxRepository.findByPerson(personEntityOptional.get());
+        final List<FaxDto> faxDtoList = new ArrayList<>();
+        for (FaxEntity faxEntity : faxEntityList) {
+            final FaxDto faxDto = new FaxDto();
+            faxDto.setFax(faxEntity.getIdentifiedBy());
+            faxDto.setUse(ContactUse.valueOf(faxEntity.getUse()));
+            faxDtoList.add(faxDto);
+        }
+
+        return faxDtoList;
     }
 }

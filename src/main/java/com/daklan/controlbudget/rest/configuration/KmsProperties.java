@@ -23,7 +23,7 @@ public class KmsProperties {
     private String xsiTypeName;
 
     private Prospect prospect = new Prospect();
-    private Tariffication tariffication = new Tariffication();
+//    private Tariffication tariffication = new Tariffication();
 
 
     public String getProtocol() {
@@ -122,13 +122,13 @@ public class KmsProperties {
         this.xsiTypeName = xsiTypeName;
     }
 
-    public Tariffication getTariffication() {
-        return tariffication;
-    }
-
-    public void setTariffication(Tariffication tariffication) {
-        this.tariffication = tariffication;
-    }
+//    public Tariffication getTariffication() {
+//        return tariffication;
+//    }
+//
+//    public void setTariffication(Tariffication tariffication) {
+//        this.tariffication = tariffication;
+//    }
 
     /**
      * POJO portant les attributs de configuration concernant le prospect.
@@ -197,81 +197,81 @@ public class KmsProperties {
         }
     }
 
-    public class TarificationTemplate {
-
-        private String insuranceProductPath;
-        private String contributionPeriodPath;
-        private String birthDatePath;
-        private String additionalCapitalAmountPath;
-        private String kmsResponsePath;
-
-        public String getInsuranceProductPath() {
-            return insuranceProductPath;
-        }
-
-        public void setInsuranceProductPath(String insuranceProductPath) {
-            this.insuranceProductPath = insuranceProductPath;
-        }
-
-        public String getContributionPeriodPath() {
-            return contributionPeriodPath;
-        }
-
-        public void setContributionPeriodPath(String contributionPeriodPath) {
-            this.contributionPeriodPath = contributionPeriodPath;
-        }
-
-        public String getBirthDatePath() {
-            return birthDatePath;
-        }
-
-        public void setBirthDatePath(String birthDatePath) {
-            this.birthDatePath = birthDatePath;
-        }
-
-        public String getAdditionalCapitalAmountPath() {
-            return additionalCapitalAmountPath;
-        }
-
-        public void setAdditionalCapitalAmountPath(String additionalCapitalAmountPath) {
-            this.additionalCapitalAmountPath = additionalCapitalAmountPath;
-        }
-
-        public String getKmsResponsePath() {
-            return kmsResponsePath;
-        }
-
-        public void setKmsResponsePath(String kmsResponsePath) {
-            this.kmsResponsePath = kmsResponsePath;
-        }
-    }
-    public class Tariffication {
-        private String Url;
-        private Template template = new Template();
-        private TarificationTemplate tarificationTemplate = new TarificationTemplate();
-
-        public String getUrl() {
-            return Url;
-        }
-
-        public void setUrl(String url) {
-            Url = url;
-        }
-
-        public Template getTemplate() {
-            return template;
-        }
-
-        public void setTemplate(Template template) {
-            this.template = template;
-        }
-
-        public TarificationTemplate getTarificationTemplate() {
-            return tarificationTemplate;
-        }
-
-        public void setTarificationTemplate(TarificationTemplate tarificationTemplate) {
-            this.tarificationTemplate = tarificationTemplate;
-        }
-    }
+//    public class TarificationTemplate {
+//
+//        private String insuranceProductPath;
+//        private String contributionPeriodPath;
+//        private String birthDatePath;
+//        private String additionalCapitalAmountPath;
+//        private String kmsResponsePath;
+//
+//        public String getInsuranceProductPath() {
+//            return insuranceProductPath;
+//        }
+//
+//        public void setInsuranceProductPath(String insuranceProductPath) {
+//            this.insuranceProductPath = insuranceProductPath;
+//        }
+//
+//        public String getContributionPeriodPath() {
+//            return contributionPeriodPath;
+//        }
+//
+//        public void setContributionPeriodPath(String contributionPeriodPath) {
+//            this.contributionPeriodPath = contributionPeriodPath;
+//        }
+//
+//        public String getBirthDatePath() {
+//            return birthDatePath;
+//        }
+//
+//        public void setBirthDatePath(String birthDatePath) {
+//            this.birthDatePath = birthDatePath;
+//        }
+//
+//        public String getAdditionalCapitalAmountPath() {
+//            return additionalCapitalAmountPath;
+//        }
+//
+//        public void setAdditionalCapitalAmountPath(String additionalCapitalAmountPath) {
+//            this.additionalCapitalAmountPath = additionalCapitalAmountPath;
+//        }
+//
+//        public String getKmsResponsePath() {
+//            return kmsResponsePath;
+//        }
+//
+//        public void setKmsResponsePath(String kmsResponsePath) {
+//            this.kmsResponsePath = kmsResponsePath;
+//        }
+//    }
+//    public class Tariffication {
+//        private String Url;
+//        private Template template = new Template();
+//        private TarificationTemplate tarificationTemplate = new TarificationTemplate();
+//
+//        public String getUrl() {
+//            return Url;
+//        }
+//
+//        public void setUrl(String url) {
+//            Url = url;
+//        }
+//
+//        public Template getTemplate() {
+//            return template;
+//        }
+//
+//        public void setTemplate(Template template) {
+//            this.template = template;
+//        }
+//
+//        public TarificationTemplate getTarificationTemplate() {
+//            return tarificationTemplate;
+//        }
+//
+//        public void setTarificationTemplate(TarificationTemplate tarificationTemplate) {
+//            this.tarificationTemplate = tarificationTemplate;
+//        }
+//}
 }

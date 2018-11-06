@@ -59,6 +59,7 @@ public class ShoppingListJsonOperationIntegrationTest {
 //    }
 
 
+    @Ignore
     @Test
     public void givenJsonPathWithoutPredicates_whenReading_thenCorrect() {
         final String jsonpathCategoryNamePath = "$.shoppinglist.category.name";

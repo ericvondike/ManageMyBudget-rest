@@ -1,7 +1,10 @@
 package com.daklan.controlbudget.rest.model.dto.contactinformation;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <b>The DTO class for Updating a record: Person, Telephone, Fax, etc,.</b>
@@ -23,25 +26,30 @@ public class RecordUpdateDtoOut implements Serializable {
         this.id = id;
     }
 
-
     @Override
     public String toString() {
-        return "RecordUpdateDtoOut{" +
-                "id='" + id + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (!(o instanceof RecordUpdateDtoOut)) return false;
+
         RecordUpdateDtoOut that = (RecordUpdateDtoOut) o;
-        return Objects.equals(getId(), that.getId());
+
+        return new EqualsBuilder()
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getId());
+        return new HashCodeBuilder(17, 37)
+                .append(getId())
+                .toHashCode();
     }
 }

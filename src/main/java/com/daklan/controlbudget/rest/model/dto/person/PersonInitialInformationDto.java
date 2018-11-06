@@ -1,10 +1,12 @@
 package com.daklan.controlbudget.rest.model.dto.person;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * <b>The DTO class modeling the initial information necessary to create a person for the first time.</b>
@@ -48,26 +50,34 @@ public class PersonInitialInformationDto implements Serializable {
 
     @Override
     public String toString() {
-        return "PersonCreateDtoIn{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
+        return new ToStringBuilder(this)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("birthDate", birthDate)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (!(o instanceof PersonInitialInformationDto)) return false;
+
         PersonInitialInformationDto that = (PersonInitialInformationDto) o;
-        return Objects.equals(getFirstName(), that.getFirstName()) &&
-                Objects.equals(getLastName(), that.getLastName()) &&
-                Objects.equals(getBirthDate(), that.getBirthDate());
+
+        return new EqualsBuilder()
+                .append(getFirstName(), that.getFirstName())
+                .append(getLastName(), that.getLastName())
+                .append(getBirthDate(), that.getBirthDate())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getFirstName(), getLastName(), getBirthDate());
+        return new HashCodeBuilder(17, 37)
+                .append(getFirstName())
+                .append(getLastName())
+                .append(getBirthDate())
+                .toHashCode();
     }
 }

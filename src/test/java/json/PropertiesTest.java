@@ -12,8 +12,8 @@ public class PropertiesTest {
     @Ignore
     @Test
     public void aSimpleTest() {
-        String birthdatePath = kmsProperties.getTariffication().getTarificationTemplate().getBirthDatePath();
-        System.out.print(birthdatePath);
+//        String birthdatePath = kmsProperties.getTariffication().getTarificationTemplate().getBirthDatePath();
+//        System.out.print(birthdatePath);
     }
 
 }

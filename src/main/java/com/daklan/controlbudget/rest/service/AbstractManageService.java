@@ -3,11 +3,17 @@ package com.daklan.controlbudget.rest.service;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordCreateDtoOut;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordDeleteDtoOut;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordUpdateDtoOut;
+import com.daklan.controlbudget.rest.model.enums.ContactUse;
+import com.daklan.controlbudget.rest.service.impl.ExceptionManageMyBudgetService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <b>The abstract class for the common methods on all services.</b>
  */
 public abstract class AbstractManageService {
+
+    @Autowired
+    private ExceptionManageMyBudgetService exceptionManageMyBudgetService;
 
 
     /**
@@ -33,5 +39,18 @@ public abstract class AbstractManageService {
     public RecordDeleteDtoOut buildRecordDeletDtoOut(String idRecord) {
         final RecordDeleteDtoOut recordDeleteDtoOut = new RecordDeleteDtoOut(idRecord);
         return recordDeleteDtoOut;
+    }
+
+    public ContactUse convertStringContactUseToEnumContactUse(String strContactUse) {
+
+        switch (strContactUse) {
+            case "PERSPNEL" :
+                return ContactUse.PERSONAL;
+            case "PROFESSIONAL":
+                return ContactUse.PROFESSIONAL;
+            default:
+                exceptionManageMyBudgetService.throwContactUseNotFoundException(strContactUse);
+        }
+        return null;
     }
 }

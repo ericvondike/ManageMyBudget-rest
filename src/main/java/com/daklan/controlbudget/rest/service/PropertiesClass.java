@@ -2,7 +2,6 @@ package com.daklan.controlbudget.rest.service;
 
 import com.daklan.controlbudget.rest.configuration.KmsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 public class PropertiesClass {
@@ -14,7 +13,7 @@ public class PropertiesClass {
         this.kmsProperties = kmsProperties;
     }
 
-    String birthdatePath = this.kmsProperties.getTariffication().getTarificationTemplate().getBirthDatePath();
+//    String birthdatePath = this.kmsProperties.getTariffication().getTarificationTemplate().getBirthDatePath();
 
     
 

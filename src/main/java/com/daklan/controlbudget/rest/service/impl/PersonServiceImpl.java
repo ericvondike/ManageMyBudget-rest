@@ -1,8 +1,11 @@
 package com.daklan.controlbudget.rest.service.impl;
 
+import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 import com.daklan.controlbudget.rest.model.dto.address.AddressDto;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.*;
+import com.daklan.controlbudget.rest.model.dto.person.PersonConsultDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
+import com.daklan.controlbudget.rest.model.dto.person.PersonInitialInformationDto;
 import com.daklan.controlbudget.rest.model.dto.person.PersonUpdateDtoIn;
 import com.daklan.controlbudget.rest.model.entity.PersonEntity;
 import com.daklan.controlbudget.rest.model.entity.address.AddressEntity;
@@ -17,9 +20,7 @@ import com.daklan.controlbudget.rest.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @see PersonService
@@ -52,8 +53,6 @@ public class PersonServiceImpl extends AbstractManageService implements PersonSe
 
 
     /**
-     * @param personCreateDtoIn DTOin containing the information on the person to be created. This is the initial information on the person.
-     * @return personCreateDtoOut which is filled in via the search into teh database for the data already saved in it.
      * @see PersonService#create(PersonCreateDtoIn)
      */
     @Override
@@ -75,8 +74,6 @@ public class PersonServiceImpl extends AbstractManageService implements PersonSe
     }
 
     /**
-     * @param personUpdateDtoIn DTOin containing the information on the person to be updated. This is the complete information on the person.
-     * @return
      * @see PersonService#update(PersonUpdateDtoIn, Long)
      */
     @Override
@@ -164,6 +161,9 @@ public class PersonServiceImpl extends AbstractManageService implements PersonSe
         return personUpdateDtoOut;
     }
 
+    /**
+     * @see PersonService#delete(Long)
+     */
     @Override
     public RecordDeleteDtoOut delete(Long idPerson) {
         Optional<PersonEntity> personEntityOptional = personRepository.findById(idPerson);
@@ -177,5 +177,41 @@ public class PersonServiceImpl extends AbstractManageService implements PersonSe
         RecordDeleteDtoOut personDeleteDtoOut = buildRecordDeletDtoOut(idPerson.toString());
 
         return personDeleteDtoOut;
+    }
+
+    /**
+     * @see PersonService#retrieve(Long)
+     */
+    @Override
+    public PersonConsultDtoOut retrieve(Long id) throws RecordNotFoundException {
+        Optional<PersonEntity> personEntityOptional = personRepository.findById(id);
+        if (!personEntityOptional.isPresent()) {
+            exceptionManageMyBudgetService.throwPersonNotFoundExcpetion(id);
+        }
+
+        final PersonEntity personEntityFound = personEntityOptional.get();
+
+        final PersonConsultDtoOut personConsultDtoOut = new PersonConsultDtoOut();
+        final PersonInitialInformationDto personInitialInformationDto = new PersonInitialInformationDto();
+        personInitialInformationDto.setFirstName(personEntityFound.getFirstName());
+        personInitialInformationDto.setLastName(personEntityFound.getLastName());
+        personInitialInformationDto.setBirthDate(personEntityFound.getBirthDate());
+        personConsultDtoOut.setPersonInitialInformationDto(personInitialInformationDto);
+
+        List<EmailEntity> emailEntityList = emailRepository.findByPerson(personEntityFound);
+        if (!emailEntityList.isEmpty()) {
+            List<EmailDto> emailDtoList = new ArrayList<>();
+            for (EmailEntity emailEntity : emailEntityList) {
+                EmailDto emailDto = new EmailDto();
+                emailDto.setEmail(emailEntity.getIdentifiedBy());
+                emailDto.setUse(convertStringContactUseToEnumContactUse(emailEntity.getUse()));
+                emailDtoList.add(emailDto);
+            }
+            personConsultDtoOut.setEmails(emailDtoList);
+        }
+
+
+
+        return null;
     }
 }

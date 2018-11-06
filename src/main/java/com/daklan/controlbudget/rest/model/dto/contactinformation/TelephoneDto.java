@@ -3,9 +3,11 @@ package com.daklan.controlbudget.rest.model.dto.contactinformation;
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
 import com.daklan.controlbudget.rest.model.enums.TelephoneType;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <b>The DTO class modeling the telephone of the Person.</b>
@@ -48,26 +50,34 @@ public class TelephoneDto implements Serializable {
 
     @Override
     public String toString() {
-        return "TelephoneDto{" +
-                "telephone='" + telephone + '\'' +
-                ", use=" + use +
-                ", telephoneType=" + telephoneType +
-                '}';
+        return new ToStringBuilder(this)
+                .append("telephone", telephone)
+                .append("use", use)
+                .append("telephoneType", telephoneType)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (!(o instanceof TelephoneDto)) return false;
+
         TelephoneDto that = (TelephoneDto) o;
-        return Objects.equals(getTelephone(), that.getTelephone()) &&
-                getUse() == that.getUse() &&
-                getTelephoneType() == that.getTelephoneType();
+
+        return new EqualsBuilder()
+                .append(getTelephone(), that.getTelephone())
+                .append(getUse(), that.getUse())
+                .append(getTelephoneType(), that.getTelephoneType())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getTelephone(), getUse(), getTelephoneType());
+        return new HashCodeBuilder(17, 37)
+                .append(getTelephone())
+                .append(getUse())
+                .append(getTelephoneType())
+                .toHashCode();
     }
 }

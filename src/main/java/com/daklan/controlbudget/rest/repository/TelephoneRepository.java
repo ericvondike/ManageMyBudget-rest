@@ -16,5 +16,6 @@ public interface TelephoneRepository extends CrudRepository<TelephoneEntity, Lon
     List<Long> findTelephoneNumberForPerson(@Param("id_person") Long idPerson,
                                             @Param("telephone_number") String telephoneNumber);
 
+    List<TelephoneEntity> findTelephoneEntityByPerson(PersonEntity personEntity);
     TelephoneEntity findTelephoneEntityByIdentifiedByAndPerson(String telephoneNumber, PersonEntity personEntity);
 }

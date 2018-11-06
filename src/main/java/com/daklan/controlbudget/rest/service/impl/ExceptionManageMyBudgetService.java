@@ -14,12 +14,16 @@ import java.text.MessageFormat;
 public class ExceptionManageMyBudgetService {
     private String errorMessagePersonNotFound;
     private String errorMessageContactInformationNotFound;
+    private String errorMessageContactUseNotFound;
+    @Value("${message.error.person.not.found}") private String errorMessagePersonNotFoundTest;
 
     @Autowired
     public ExceptionManageMyBudgetService(@Value("${message.error.person.not.found}") String errorMessagePersonNotFound,
-                                          @Value("${message.contact.not.found}") String errorMessageContactInformationNotFound) {
+                                          @Value("${message.contact.not.found}") String errorMessageContactInformationNotFound,
+                                          @Value("${message.error.contact.use.not.found}") String errorMessageContactUseNotFound) {
         this.errorMessagePersonNotFound = errorMessagePersonNotFound;
         this.errorMessageContactInformationNotFound = errorMessageContactInformationNotFound;
+        this.errorMessageContactUseNotFound = errorMessageContactUseNotFound;
     }
 
     /**
@@ -37,6 +41,15 @@ public class ExceptionManageMyBudgetService {
      */
     public void throwContactInformationNotFoundException(Long idContactInformation) {
         final String errorMessage = MessageFormat.format(errorMessageContactInformationNotFound, idContactInformation);
+        throw new RecordNotFoundException(errorMessage);
+    }
+
+    /**
+     * <b>The method for handling the exception for a nonExistent contact Use.</b>
+     * @param strContactUse the input contact USE: The usage type of the contact information (PERSONAL, PROFESSIONAL)
+     */
+    public void throwContactUseNotFoundException(String strContactUse) {
+        final String errorMessage = MessageFormat.format(errorMessageContactUseNotFound, strContactUse);
         throw new RecordNotFoundException(errorMessage);
     }
 }

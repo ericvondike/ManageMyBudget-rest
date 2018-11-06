@@ -14,10 +14,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <b>The DTO classs modeling the complete information on a Person.</b>
+ * <b>The DTOout class for consulting the entire information on a person.</b>
  */
-public class PersonUpdateDtoIn implements Serializable {
-    private static final Long serialVersionUID = 5123047896347521039L;
+public class PersonConsultDtoOut implements Serializable {
+    private static final Long serialVersionUID = 9123654809712456703L;
 
     @JsonUnwrapped
     PersonInitialInformationDto personInitialInformationDto;
@@ -39,7 +39,6 @@ public class PersonUpdateDtoIn implements Serializable {
 
     @ApiModelProperty(value = "The list of the addresses of the Person", position = 25)
     private List<AddressDto> addresses;
-
 
     public PersonInitialInformationDto getPersonInitialInformationDto() {
         return personInitialInformationDto;
@@ -114,9 +113,9 @@ public class PersonUpdateDtoIn implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (!(o instanceof PersonUpdateDtoIn)) return false;
+        if (!(o instanceof PersonConsultDtoOut)) return false;
 
-        PersonUpdateDtoIn that = (PersonUpdateDtoIn) o;
+        PersonConsultDtoOut that = (PersonConsultDtoOut) o;
 
         return new EqualsBuilder()
                 .append(getPersonInitialInformationDto(), that.getPersonInitialInformationDto())
