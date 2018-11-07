@@ -2,11 +2,13 @@ package com.daklan.controlbudget.rest.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * POJO portant les attributs de configuration préfixés par "kmse".
  */
 @Configuration
+@PropertySource("classpath: kmse.properties")
 @ConfigurationProperties(prefix = "kmse")
 public class KmsProperties {
 
