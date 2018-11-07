@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
  * POJO portant les attributs de configuration préfixés par "kmse".
  */
 @Configuration
-@PropertySource("classpath: kmse.properties")
+@PropertySource("kmse.properties")
 @ConfigurationProperties(prefix = "kmse")
 public class KmsProperties {
 

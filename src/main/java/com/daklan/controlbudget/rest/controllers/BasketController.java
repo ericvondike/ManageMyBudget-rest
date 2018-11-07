@@ -29,7 +29,8 @@ public class BasketController {
     private JsonPathTestService jsonPathTestService;
 
     @Autowired
-    public BasketController(BasketService service, JsonPathTestService jsonPathTestService) {
+    public BasketController(final BasketService service,
+                            final JsonPathTestService jsonPathTestService) {
         this.service = service;
         this.jsonPathTestService = jsonPathTestService;
     }
@@ -39,6 +40,7 @@ public class BasketController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShoppingListOut> buildBasket(@RequestBody ShoppingListIn shoppingListIn) throws IOException {
         String testFilePath = jsonPathTestService.callPropertiesFile();
+//        String url = jsonPathTestService.callPropertiesFileTest();
         ShoppingListOut shoppingListOut = service.BuildBasket(shoppingListIn);
         return ResponseEntity.ok(shoppingListOut);
     }
