@@ -18,4 +18,8 @@ public class PersonCreateDtoIn implements Serializable {
     public PersonInitialInformationDto getPersonInitialInformationDto() {
         return personInitialInformationDto;
     }
+
+    public void setPersonInitialInformationDto(PersonInitialInformationDto personInitialInformationDto) {
+        this.personInitialInformationDto = personInitialInformationDto;
+    }
 }
