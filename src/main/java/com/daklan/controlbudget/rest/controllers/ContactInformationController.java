@@ -2,6 +2,9 @@ package com.daklan.controlbudget.rest.controllers;
 
 import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.*;
+import com.daklan.controlbudget.rest.model.dto.output.RecordCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordDeleteDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordUpdateDtoOut;
 import com.daklan.controlbudget.rest.service.ContactInformationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,8 +1,8 @@
 package com.daklan.controlbudget.rest.service;
 
-import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordCreateDtoOut;
-import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordDeleteDtoOut;
-import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordUpdateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordDeleteDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordUpdateDtoOut;
 import com.daklan.controlbudget.rest.model.enums.ContactUse;
 import com.daklan.controlbudget.rest.service.impl.ExceptionManageMyBudgetService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.daklan.controlbudget.rest.model.dto.contactinformation;
+package com.daklan.controlbudget.rest.model.dto.output;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

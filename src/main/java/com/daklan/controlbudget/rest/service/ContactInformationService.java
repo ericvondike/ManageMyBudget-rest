@@ -3,6 +3,9 @@ package com.daklan.controlbudget.rest.service;
 import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
 import com.daklan.controlbudget.rest.configuration.TooManyRecordsFoundException;
 import com.daklan.controlbudget.rest.model.dto.contactinformation.*;
+import com.daklan.controlbudget.rest.model.dto.output.RecordCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordDeleteDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordUpdateDtoOut;
 
 import java.util.List;
 

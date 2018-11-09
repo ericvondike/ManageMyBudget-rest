@@ -1,6 +1,6 @@
 package service;
 
-import com.daklan.controlbudget.rest.model.dto.contactinformation.RecordCreateDtoOut;
+import com.daklan.controlbudget.rest.model.dto.output.RecordCreateDtoOut;
 import com.daklan.controlbudget.rest.model.dto.person.PersonCreateDtoIn;
 import com.daklan.controlbudget.rest.model.dto.person.PersonInitialInformationDto;
 import com.daklan.controlbudget.rest.service.PersonService;

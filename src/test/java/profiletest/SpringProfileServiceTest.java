@@ -1,6 +1,7 @@
 package profiletest;
 
 import com.daklan.controlbudget.rest.ControlbugetRestApplication;
+import com.daklan.controlbudget.rest.configuration.KmsProperties;
 import com.daklan.controlbudget.rest.service.JsonPathTestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,11 @@ public class SpringProfileServiceTest {
 
     @Autowired
     private JsonPathTestService jsonPathTestService;
+
+    @Autowired
+    KmsProperties kmsProperties;
+
+
 
     @Test
     public void when_kmsProfileShouldRunTheKmsCase() throws IOException {
