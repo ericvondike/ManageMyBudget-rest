@@ -1,6 +1,7 @@
 package com.daklan.controlbudget.rest.controllers;
 
 import com.daklan.controlbudget.rest.configuration.RecordNotFoundException;
+import com.daklan.controlbudget.rest.configuration.WrongPasswordException;
 import com.daklan.controlbudget.rest.model.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
 
     @Value("${message.error.record.not.found}")
     String recordNotFoundGenericMessage;
+    @Value("${message.error.wrong.password}") String wrongPasswordGenericMessage;
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
@@ -68,6 +70,16 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         errors.add(ex.getMessage());
 
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, recordNotFoundGenericMessage, request.getDescription(false), errors);
+
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(WrongPasswordException.class)
+    public final ResponseEntity<ApiError> handleWrongPasswordException(final WrongPasswordException ex,
+                                                                       final WebRequest request) {
+        final List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, wrongPasswordGenericMessage, request.getDescription(false), errors);
 
         return ResponseEntity.badRequest().body(apiError);
     }

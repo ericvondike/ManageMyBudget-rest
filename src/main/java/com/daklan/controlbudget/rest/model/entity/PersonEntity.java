@@ -50,6 +50,10 @@ public class PersonEntity {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<AddressEntity> addresses;
 
+    @OneToOne
+    @JoinColumn(name = "id_user")
+    private UserEntity userEntity;
+
     public Long getId() {
         return id;
     }
@@ -136,5 +140,13 @@ public class PersonEntity {
 
     public void setAddresses(Set<AddressEntity> addresses) {
         this.addresses = addresses;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

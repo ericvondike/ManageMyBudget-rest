@@ -2,9 +2,18 @@ CREATE DATABASE IF NOT EXISTS `db_person`;
 USE `db_person`;
 
 --
+-- Table Structure for `user`
+--
+CREATE TABLE IF NOT EXISTS `userinformation` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`username` varchar(30) NOT NULL,
+`password` varchar(128) NOT NULL,
+PRIMARY KEY(`id`),
+UNIQUE KEY(`username`, `password`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+--
 -- Table structure for `person`
 --
-DROP TABLE IF EXISTS `person`;
 CREATE TABLE IF NOT EXISTS `person` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `first_name` varchar(30) NOT NULL,
@@ -13,9 +22,13 @@ CREATE TABLE IF NOT EXISTS `person` (
 `status` varchar(20) NOT NULL DEFAULT 'BEGINNER',
 `middle_name` varchar(30),
 `marital_name` varchar(30),
+`id_user` int(11) unsigned,
 PRIMARY KEY (`id`),
-UNIQUE KEY (`first_name`, `last_name`, `birth_date`)
+UNIQUE KEY (`first_name`, `last_name`, `birth_date`),
+KEY `fk_person_userid_idx` (`id_user`),
+CONSTRAINT `fk_person_userid` FOREIGN KEY (`id_user`) REFERENCES `userinformation` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
 
 --
 -- Table structure for table `email`
@@ -39,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `telephone` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `telephone_number` varchar(255) DEFAULT NULL,
 `usage_type` varchar(20) DEFAULT 'PERSONAL',
-`id_person` int(11) unsigned DEFAULT NULL,
+`id_person` int(11) unsigned,
 PRIMARY KEY(`id`),
-UNION KEY(`telephone_number`, `id_person`)
+UNIQUE KEY(`telephone_number`, `id_person`),
 KEY `fk_telephone_personid_idx` (`id_person`),
 CONSTRAINT `fk_telephone_personid` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
